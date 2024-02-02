@@ -1,13 +1,13 @@
-tool
-extends Reference
+@tool
+extends RefCounted
 
-var num_regex := RegEx.new()
-var unicode_regex := RegEx.new()
+static var num_regex := RegEx.new()
+static var unicode_regex := RegEx.new()
 
-var regex_compiled := false
+static var regex_compiled := false
 
 # split multi-line string into 2d array containing char codes
-func chars_to_codes(chars: String) -> Array:
+static func chars_to_codes(chars: String) -> Array:
 	var codes = []
 	
 	if not regex_compiled:
@@ -39,10 +39,10 @@ func chars_to_codes(chars: String) -> Array:
 				
 				i += code.get_string().length() - 1
 			else:
-				code_int = ord("\\")
+				code_int = "\\".unicode_at(0)
 		# standard char
 		else:
-			code_int = ord(next_char)
+			code_int = next_char.unicode_at(0)
 		
 		# add line, if not present
 		if line + 1 > codes.size():

@@ -1,33 +1,38 @@
-tool
+@tool
 extends HSplitContainer
 
-signal change
+signal changed
 
-onready var char_setting_list := $HSplitContainer/ListSettings/VSplitContainer/CharSettings/MarginContainer/ScrollContainer/SettingList
-onready var kerning_pair_list := $HSplitContainer/ListSettings/VSplitContainer/Kerning/MarginContainer/ScrollContainer/KerningList
+const Preview = preload("./Preview.gd")
+const Vector2Edit = preload("./Components/Vector2Edit.gd")
+const CharSetting = preload("./Components/CharSetting.gd")
+const KerningPair = preload("./Components/KerningPair.gd")
 
-onready var height := $HSplitContainer/Settings/MarginContainer/Grid/Height
-onready var gap := $HSplitContainer/Settings/MarginContainer/Grid/Gap
-onready var horizontal_align := $HSplitContainer/Settings/MarginContainer/Grid/HorizontalAlign
-onready var vertical_align := $HSplitContainer/Settings/MarginContainer/Grid/VerticalAlign
-onready var ascent := $HSplitContainer/Settings/MarginContainer/Grid/Ascent
-onready var monospace := $HSplitContainer/Settings/MarginContainer/Grid/MonoSpaced
+const CHAR_SETTING_SCENE := preload("./Components/CharSetting.tscn")
+const KERNING_PAIR_SCENE := preload("./Components/KerningPair.tscn")
 
-onready var preview := $Preview
-onready var preview_textbox := $Preview/MarginContainer/TextEdit
+@export var char_setting_list: VBoxContainer
+@export var kerning_pair_list: VBoxContainer
 
-const char_setting_scene := preload("./Components/CharSetting.tscn")
-const kerning_pair_scene := preload("./Components/KerningPair.tscn")
+@export var descent: SpinBox
+@export var ascent: SpinBox
+@export var gap: SpinBox
+@export var alignment: Vector2Edit
+@export var monospace: CheckBox
 
-var font_settings
+@export var preview: Preview
+@export var preview_textbox: TextEdit
+
+
+var font_settings: TextureFont.Settings
 var font_ref: WeakRef
 
 
-func set_font(new_font):
+func set_font(new_font: TextureFont):
 	font_ref = weakref(new_font)
 	
-	height.value = new_font.height
-	ascent.value = new_font.ascent
+	descent.set_value_no_signal(new_font.get_cache_descent(0, TextureFont.FONT_SIZE.x))
+	ascent.set_value_no_signal(new_font.get_cache_ascent(0, TextureFont.FONT_SIZE.x))
 	
 	# clear char settings list
 	for child in char_setting_list.get_children():
@@ -40,25 +45,23 @@ func set_font(new_font):
 	
 	font_settings = new_font.font_settings
 	
-	# populate char settings list
+	# Populate char settings list.
 	for for_char in font_settings.char_settings:
-		_add_char_setting(null, for_char)
+		_add_char_setting(for_char)
 	
-	for kerning_pair in font_settings.kerning_pairs:
-		_add_kerning_pair(null, kerning_pair)
+	for for_kerning_pair in font_settings.kerning_pairs:
+		_add_kerning_pair(for_kerning_pair)
 	
-	gap.value = font_settings.gap
-	horizontal_align.value = font_settings.horizontal_align
-	vertical_align.value = font_settings.vertical_align
-	monospace.pressed = font_settings.monospace
+	gap.set_value_no_signal(font_settings.gap)
+	alignment.set_value_no_signal(font_settings.alignment)
+	monospace.button_pressed = font_settings.monospace
 	
 	preview.set_preview_text(font_settings.preview_chars)
 	preview.set_preview_color(font_settings.preview_color)
 
 
-func _add_char_setting(char_setting_node = null, for_char = null):
-	if char_setting_node == null:
-		char_setting_node = char_setting_scene.instance()
+func _add_char_setting(for_char := ""):
+	var char_setting_node: CharSetting = CHAR_SETTING_SCENE.instantiate()
 	
 	if for_char:
 		char_setting_node.for_char = for_char
@@ -66,104 +69,94 @@ func _add_char_setting(char_setting_node = null, for_char = null):
 	char_setting_node.font_settings = font_settings
 	
 	char_setting_list.add_child(char_setting_node)
-	char_setting_node.owner = self.owner
-	char_setting_node.connect("change", self, "_value_changed")
-	char_setting_node.connect("delete", self, "_on_char_setting_delete")
+	char_setting_node.owner = owner
+	char_setting_node.changed.connect(_emit_changed)
+	char_setting_node.delete_requested.connect(_on_char_setting_delete.bind(char_setting_node))
 	
-	_value_changed()
+	_emit_changed()
 
 
-func _add_kerning_pair(kerning_pair_node = null, pair = null):
-	if kerning_pair_node == null:
-		kerning_pair_node = kerning_pair_scene.instance()
+func _add_kerning_pair(pair := {}):
+	# FIXME: Kerning pair values are not displayed at all on load.
+	var kerning_pair_node: KerningPair = KERNING_PAIR_SCENE.instantiate()
 	
-	kerning_pair_list.add_child(kerning_pair_node)
-	kerning_pair_node.owner = self.owner
-	
-	kerning_pair_node.font_settings = font_settings
-	
-	if pair == null:
+	if pair.is_empty():
 		pair = font_settings.add_kerning_pair()
 	
 	kerning_pair_node.set_kerning_pair(pair)
-	kerning_pair_node.connect("change", self, "_value_changed")
-	kerning_pair_node.connect("delete", self, "_on_kerning_pair_delete")
+	kerning_pair_node.font_settings = font_settings
 	
-	_value_changed()
+	kerning_pair_list.add_child(kerning_pair_node)
+	kerning_pair_node.owner = owner
+	kerning_pair_node.changed.connect(_emit_changed)
+	kerning_pair_node.delete_requested.connect(_on_kerning_pair_delete.bind(kerning_pair_node))
+	
+	_emit_changed()
 
 
-func _on_kerning_pair_delete(node):
-	var idx = node.get_index()
+func _on_kerning_pair_delete(kerning_node: KerningPair):
+	var idx := kerning_node.get_index()
 	
-	node.queue_free()
+	kerning_node.queue_free()
 	font_settings.remove_kerning_pair(idx)
-	_value_changed()
+	_emit_changed()
 
 
-func _on_char_setting_delete(node):
-	var for_char = node.for_char
-	
-	node.queue_free()
-	font_settings.remove_setting(for_char)
-	_value_changed()
+func _on_char_setting_delete(char_node: CharSetting):
+	char_node.queue_free()
+	font_settings.remove_setting(char_node.for_char)
+	_emit_changed()
 
 
-func _value_changed():
-	emit_signal("change")
+func _emit_changed():
+	emit_signal("changed")
 
 
 func _on_AddCharSettingButton_pressed():
 	_add_char_setting()
 
-
 func _on_AddKerningButton_pressed():
 	_add_kerning_pair()
 
+# ==============================================================
 
-func _on_Height_value_changed(value):
-	var font = font_ref.get_ref()
-	if font:
-		font.height = value
-	_value_changed()
+func _on_Ascent_value_changed(value: float):
+	var font := font_ref.get_ref() as TextureFont
+	if font and font_settings:
+		font_settings.ascent = value
+	_emit_changed()
 
+func _on_Descent_value_changed(value: float):
+	var font := font_ref.get_ref() as TextureFont
+	if font and font_settings:
+		font_settings.descent = value
+#		font.set_cache_descent(0, TextureFont.FONT_SIZE.x, value)
+	_emit_changed()
 
-func _on_Gap_value_changed(value):
+func _on_Gap_value_changed(value: float):
 	font_settings.gap = value
-	_value_changed()
+	_emit_changed()
 
-
-func _on_HorizontalAlign_value_changed(value):
-	font_settings.horizontal_align = value
-	_value_changed()
-
-
-func _on_Ascent_value_changed(value):
-	var font = font_ref.get_ref()
-	if font:
-		font.ascent = value
-	_value_changed()
-
-
-func _on_MonoSpaced_toggled(button_pressed):
+func _on_MonoSpaced_toggled(button_pressed: bool):
 	font_settings.monospace = button_pressed
-	_value_changed()
+	_emit_changed()
 
-
-func _on_VerticalAlign_value_changed(value):
-	font_settings.vertical_align = value
-	_value_changed()
+func _on_Alignment_value_changed(value: Vector2):
+	font_settings.alignment = value
+	_emit_changed()
 
 
 func _on_TextEdit_text_changed():
 	font_settings.preview_chars = preview_textbox.text
-	_value_changed()
+	_emit_changed()
 
 
-func _on_Scale_value_changed(value):
+func _on_Scale_value_changed(value: float):
 	preview.set_preview_scale(value / 100.0)
 
 
-func _on_ColorPickerButton_color_changed(color):
+func _on_ColorPickerButton_color_changed(color: Color):
 	preview.set_preview_color(color)
 	font_settings.preview_color = color
-	_value_changed()
+	_emit_changed()
+

@@ -6,22 +6,14 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "BitmapFont",
-"class": "TextureFont",
-"language": "GDScript",
-"path": "res://addons/texture_fonts/Classes/TextureFont.gd"
-} ]
-_global_script_class_icons={
-"TextureFont": "res://addons/texture_fonts/Assets/TextureFont.svg"
-}
+config_version=5
 
 [application]
 
 config/name="Texture Fonts"
+config/tags=PackedStringArray("addon")
 run/main_scene="res://examples/example_showcase.tscn"
+config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
 [display]
@@ -29,10 +21,14 @@ config/icon="res://icon.png"
 window/size/width=1048
 window/size/height=628
 
+[editor]
+
+script/search_in_file_extensions=PackedStringArray("gd", "gdshader", "tscn")
+
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/texture_fonts/plugin.cfg" )
+enabled=PackedStringArray("res://addons/texture_fonts/plugin.cfg")
 
 [physics]
 
-common/enable_pause_aware_picking=true
+common/enable_pause_aware_picking=false

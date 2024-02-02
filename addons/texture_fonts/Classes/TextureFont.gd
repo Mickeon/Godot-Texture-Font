@@ -1,16 +1,16 @@
-tool
-extends BitmapFont
-class_name TextureFont, "res://addons/texture_fonts/Assets/TextureFont.svg"
+@icon("res://addons/texture_fonts/Assets/TextureFont.svg")
+@tool
+extends FontFile
+class_name TextureFont
 
+const Mapping = preload("./TextureFontMapping.gd")
+const Settings = preload("./TextureFontSettings.gd")
 
-var _texture_mappings: Array
-var _font_settings
-
-
-const default_texture_mappings := {
-	rect_size = Vector2(14, 14),
-	rect_gap = Vector2(1, 1),
-	texture_offset = Vector2(1, 1),
+const FONT_SIZE := Vector2i(12, 0)
+const DEFAULT_TEXTURE_MAPPING := {
+	rect_size = Vector2.ONE * 16,
+	rect_gap = Vector2.ZERO,
+	texture_offset = Vector2.ZERO,
 	chars = \
 """abcdefgh
 ijklmnop
@@ -18,130 +18,124 @@ qrstuvwx
 yz.,!?" """
 }
 
-func _init():
-	_font_settings = load("res://addons/texture_fonts/Classes/TextureFontSettings.gd").new()
+var texture_mappings: Array[Mapping]:
+	set(new):
+		texture_mappings = new
+		# Images are not saved in ".tres" file to avoid bloat.
+		# Set them again on load just to be sure.
+		_set_real_images()
+var font_settings: Settings = Settings.new()
 
 
-func get_class():
-	return "TextureFont"
-
-func add_texture(texture: Texture) -> void:
-	.add_texture(texture)
-	var mapping = load("res://addons/texture_fonts/Classes/TextureFontMapping.gd").new()
-	mapping.set_texture(texture)
-	mapping.rect_size = default_texture_mappings.rect_size
-	mapping.rect_gap = default_texture_mappings.rect_gap
-	mapping.texture_offset = default_texture_mappings.texture_offset
-	mapping.chars = default_texture_mappings.chars
+func add_image(image: Image) -> void:
+	set_texture_image(0, FONT_SIZE, get_texture_count(0, FONT_SIZE), image)
 	
-	self.texture_mappings.append(mapping)
+	var mapping := Mapping.new()
+	mapping.set_image(image)
+	mapping.rect_size = DEFAULT_TEXTURE_MAPPING.rect_size
+	mapping.rect_gap = DEFAULT_TEXTURE_MAPPING.rect_gap
+	mapping.texture_offset = DEFAULT_TEXTURE_MAPPING.texture_offset
+	mapping.chars = DEFAULT_TEXTURE_MAPPING.chars
+	
+	texture_mappings.append(mapping)
 
-
-func remove_texture(index: int) -> void:
-	self.texture_mappings.remove(index)
+func remove_image(index: int) -> void:
+	texture_mappings.remove_at(index)
 
 
 func build_font():
-	var height = self.height
-	var ascent = self.ascent
-	var distance_field = self.distance_field
-	var fallback = self.fallback
+	#clear_cache()
+	clear_textures(0, FONT_SIZE)
+	clear_glyphs(0, FONT_SIZE)
+	clear_kerning_map(0, FONT_SIZE.x)
+	clear_size_cache(0)
 	
-	.clear()
-	
-	var mono: bool = self.font_settings.monospace
-	var h_align: int = self.font_settings.horizontal_align
-	var v_align: int = self.font_settings.vertical_align
-	var gap: int = self.font_settings.gap
+	var mono := font_settings.monospace
+	var alignment := font_settings.alignment
+	var gap := font_settings.gap
 	
 	var is_space_defined := false
 	
-	for i in _texture_mappings.size():
-		var mapping = _texture_mappings[i]
-		.add_texture(mapping.scaled_texture)
+	set_cache_descent(0, FONT_SIZE.x, font_settings.descent)
+	set_cache_ascent(0, FONT_SIZE.x, font_settings.ascent)
+	
+	for i in texture_mappings.size():
+		var mapping := texture_mappings[i]
+		set_texture_image(0, FONT_SIZE, i, mapping.scaled_image)
 		
-		var char_codes = mapping.char_codes
+		var char_codes := mapping.char_codes
 		
 		for line in char_codes:
 			for code in line:
 				if code == 32:
 					is_space_defined = true
 				
-				var rect
+				var rect := (mapping.get_char_rect(code) if mono
+						else mapping.get_cropped_char_rect(code))
 				
-				if mono:
-					rect = mapping.get_char_rect(code)
-				else:
-					rect = mapping.get_cropped_char_rect(code)
-				
-				if rect == null:
+				if rect == Mapping.INVALID_CHAR_RECT:
 					continue
 				
-				var char_setting = _font_settings.get_setting(code)
-				var align = char_setting.offset
-				var advance = rect.size.x + char_setting.advance + gap
+				var char_setting = font_settings.get_setting(code)
+				var offset = char_setting.offset + alignment
+				var advance := Vector2(rect.size.x + char_setting.advance + gap, 0)
 				
-				align.x += h_align
-				align.y += v_align
-				
-				add_char(code, i, rect, align, advance)
+				set_glyph_texture_idx(0, FONT_SIZE, code, i)
+				set_glyph_uv_rect(0, FONT_SIZE, code, rect)
+				set_glyph_offset(0, FONT_SIZE, code, offset)
+				set_glyph_advance(0, FONT_SIZE.x, code, advance)
+				set_glyph_size(0, FONT_SIZE, code, rect.size)
+#				print("Added glyph for character '%s', advance: %s" % [String.chr(code), advance])
 	
-	# add empty space char
-	if not is_space_defined and not fallback and _texture_mappings.size() > 0:
-		var char_setting = _font_settings.get_setting(32)
+	# Add default empty space chararacter.
+	if not is_space_defined and texture_mappings.size() > 0:
+		const SPACE_CHAR = 32
+		var char_setting := font_settings.get_setting(SPACE_CHAR)
 		
 		var extra_space := 0
 		if mono:
-			extra_space = _texture_mappings[0].rect_size.x * _texture_mappings[0].scale
+			extra_space = texture_mappings[0].rect_size.x * texture_mappings[0].scale
 		
-		var advance = char_setting.advance + extra_space + gap
+		var advance := Vector2(char_setting.advance + extra_space + gap, 0)
 		
-		var rect := Rect2(0,0,0,0)
-		add_char(32, 0, rect, Vector2.ZERO, advance)
+		set_glyph_texture_idx(0, FONT_SIZE, SPACE_CHAR, 0)
+		set_glyph_uv_rect(0, FONT_SIZE, SPACE_CHAR, Rect2())
+		set_glyph_offset(0, FONT_SIZE, SPACE_CHAR, Vector2.ZERO)
+		set_glyph_advance(0, FONT_SIZE.x, SPACE_CHAR, advance)
 	
-	self.height = height
-	self.ascent = ascent
-	self.distance_field = distance_field
-	self.fallback = fallback
+	if not font_settings.kerning_pairs.is_empty():
+		var kerning_pairs := font_settings.solve_kerning_pairs()
+		for pair in kerning_pairs:
+			set_kerning(0, FONT_SIZE.x, Vector2i(pair.char_a, pair.char_b), Vector2(pair.kerning, 0))
 	
-	var kerning_pairs = _font_settings.solve_kerning_pairs()
+	emit_changed()
+	notify_property_list_changed()
+
+var _save_frame: int
+func _get_property_list() -> Array[Dictionary]:
+	if Engine.is_editor_hint():
+		# What follows is a dumb workaround to prevent bundling HUGE images in the ".tres" file.
+		# It would be nice to not generate errors. But alas.
+		if _save_frame == Engine.get_process_frames():
+			return [] # Not more than once per frame.
+		_save_frame = Engine.get_process_frames()
+		
+		clear_textures(0, FONT_SIZE)
+		push_warning("TextureFont: Ignore the errors for '%s' below, if any." % resource_path.get_file())
+		
+		#build_font.call_deferred()
+		_set_real_images.call_deferred()
 	
-	for pair in kerning_pairs:
-		add_kerning_pair(pair.char_a, pair.char_b, pair.kerning)
+	return []
+
+func _validate_property(property: Dictionary) -> void:
+	if property.name == &"texture_mappings" or property.name == &"font_settings":
+		property.usage = PROPERTY_USAGE_NO_EDITOR
+
+func _set_real_images():
+	for i in texture_mappings.size():
+		var mapping := texture_mappings[i]
+		set_texture_image(0, FONT_SIZE, i, mapping.scaled_image)
 	
-	emit_signal("changed")
-
-
-func _get_property_list():
-	
-	var props = [
-		{
-			name = "texture_mappings",
-			usage = PROPERTY_USAGE_NOEDITOR,
-			type = TYPE_RAW_ARRAY
-		},
-		{
-			name = "font_settings",
-			usage = PROPERTY_USAGE_NOEDITOR,
-			type = TYPE_NIL
-		}
-	]
-	
-	return props
-
-
-func _get(property: String):
-	match property:
-		"texture_mappings":
-			return _texture_mappings
-		"font_settings":
-			return _font_settings
-
-
-func _set(property: String, val):
-	match property:
-		"texture_mappings":
-			_texture_mappings = val
-		"font_settings":
-			_font_settings = val
+	emit_changed()
 

@@ -1,36 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://drx6lnr12pia3"]
 
-[ext_resource path="res://examples/numbers/Numbers.tscn" type="PackedScene" id=1]
-[ext_resource path="res://examples/colorful_font/ColorfulFont.tscn" type="PackedScene" id=2]
-[ext_resource path="res://examples/emoji/emoji.tscn" type="PackedScene" id=3]
+[ext_resource type="PackedScene" path="res://examples/numbers/Numbers.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://examples/colorful_font/ColorfulFont.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://examples/emoji/emoji.tscn" id="3"]
 
 [node name="Showcase" type="TabContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -8.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Numbers" parent="." instance=ExtResource( 1 )]
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+[node name="Numbers" parent="." instance=ExtResource("1")]
+layout_mode = 2
 
-[node name="ColorfulFont" parent="." instance=ExtResource( 2 )]
+[node name="ColorfulFont" parent="." instance=ExtResource("2")]
 visible = false
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+layout_mode = 2
 
-[node name="Emoji" parent="." instance=ExtResource( 3 )]
+[node name="Emoji" parent="." instance=ExtResource("3")]
 visible = false
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+layout_mode = 2

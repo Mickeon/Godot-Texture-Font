@@ -1,88 +1,91 @@
-tool
+@tool
 extends MarginContainer
 
-signal change
+signal changed
 
-onready var size := $VBoxContainer/RectSettings/Size
-onready var gap := $VBoxContainer/RectSettings/Gap
-onready var offset := $VBoxContainer/RectSettings/Offset
-onready var chars := $VBoxContainer/HSplitContainer/HBoxContainer/TextEdit
-onready var texture_viewer := $VBoxContainer/HSplitContainer/TextureViewer
-onready var scale := $VBoxContainer/RectSettings/Scaling/HBoxContainer/Scale
-onready var interpolation := $VBoxContainer/RectSettings/Scaling/HBoxContainer/Interpolation
+const Vector2Edit = preload("./Components/Vector2Edit.gd")
+const TextureViewer = preload("./Components/TextureViewer/TextureViewer.gd")
 
-var current_mapping #: TextureFontMapping
+@export var size_edit: Vector2Edit# = $VBoxContainer/RectSettings/Size
+@export var gap: Vector2Edit# = $VBoxContainer/RectSettings/Gap
+@export var offset: Vector2Edit# = $VBoxContainer/RectSettings/Offset
+@export var chars: TextEdit# = $VBoxContainer/HSplitContainer/HBoxContainer/TextEdit
+@export var texture_viewer: TextureViewer# = $VBoxContainer/HSplitContainer/TextureViewer
 
+#@export var scale_edit: SpinBox = $VBoxContainer/RectSettings/Scaling/HBoxContainer/Scale
+#@export var interpolation: OptionButton = $VBoxContainer/RectSettings/Scaling/HBoxContainer/Interpolation
 
-var interpolation_options = [
-	Image.INTERPOLATE_BILINEAR,
-	Image.INTERPOLATE_CUBIC,
-	Image.INTERPOLATE_LANCZOS,
-	Image.INTERPOLATE_NEAREST,
-	Image.INTERPOLATE_TRILINEAR
-]
+var current_mapping: TextureFont.Mapping
 
 
-func _ready():
-	interpolation.clear()
-	interpolation.add_item("Bilinear")
-	interpolation.add_item("Cubic")
-	interpolation.add_item("Lanczos")
-	interpolation.add_item("Nearest")
-	interpolation.add_item("Trilinear")
+#var interpolation_options: Array[Image.Interpolation] = [
+	#Image.INTERPOLATE_BILINEAR,
+	#Image.INTERPOLATE_CUBIC,
+	#Image.INTERPOLATE_LANCZOS,
+	#Image.INTERPOLATE_NEAREST,
+	#Image.INTERPOLATE_TRILINEAR
+#]
 
 
-func set_mapping(mapping):
+#func _ready():
+	#interpolation.clear()
+	#interpolation.add_item("Bilinear")
+	#interpolation.add_item("Cubic")
+	#interpolation.add_item("Lanczos")
+	#interpolation.add_item("Nearest")
+	#interpolation.add_item("Trilinear")
+
+
+func set_mapping(mapping: TextureFont.Mapping):
 	current_mapping = mapping
 	
-	var texture: Texture = mapping.source_texture
-	var max_size := texture.get_size()
+	var image: Image = mapping.source_image
+	var max_size := image.get_size()
 	
-	size.max_value = max_size
+	size_edit.max_value = max_size
 	gap.max_value = max_size
 	offset.max_value = max_size
 	
-	size.value = mapping.rect_size
+	size_edit.value = mapping.rect_size
 	gap.value = mapping.rect_gap
 	offset.value = mapping.texture_offset
 	chars.text = mapping.chars
-	scale.value = mapping.scale
-	interpolation.selected = interpolation_options.find(mapping.interpolation)
+	#scale_edit.value = mapping.scale
+	#interpolation.selected = interpolation_options.find(mapping.interpolation)
 
 
 func _on_Size_value_changed(value: Vector2):
 	if current_mapping:
 		current_mapping.rect_size = value
-		emit_signal("change")
-
+		emit_signal("changed")
 
 func _on_Gap_value_changed(value: Vector2):
 	if current_mapping:
 		current_mapping.rect_gap = value
-		emit_signal("change")
-
+		emit_signal("changed")
 
 func _on_Offset_value_changed(value: Vector2):
 	if current_mapping:
 		current_mapping.texture_offset = value
-		emit_signal("change")
-
+		emit_signal("changed")
 
 func _on_TextEdit_text_changed():
 	if current_mapping:
 		current_mapping.chars = chars.text
-		emit_signal("change")
+		emit_signal("changed")
 
 
-func _on_Scale_value_changed(value):
-	if current_mapping:
-		current_mapping.scale = value
-		texture_viewer.set_texture(current_mapping.scaled_texture)
-		emit_signal("change")
-
-
-func _on_OptionButton_item_selected(index):
-	if current_mapping:
-		current_mapping.interpolation = interpolation_options[index]
-		texture_viewer.set_texture(current_mapping.scaled_texture)
-		emit_signal("change")
+#func _on_Scale_value_changed(value):
+	#if current_mapping:
+		#current_mapping.scale = value
+		#var texture := ImageTexture.create_from_image(current_mapping.scaled_image)
+		#texture_viewer.set_texture(texture)
+		#emit_signal("changed")
+#
+#
+#func _on_OptionButton_item_selected(index):
+	#if current_mapping:
+		#current_mapping.interpolation = interpolation_options[index]
+		#var texture := ImageTexture.create_from_image(current_mapping.scaled_image)
+		#texture_viewer.set_texture(texture)
+		#emit_signal("changed")

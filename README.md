@@ -1,16 +1,8 @@
-# Texture-Fonts
+# TextureFont for Godot 4.2 (WIP)
 
-Texture Fonts is a Plugin for Godot 3.4+ that allows for easy creation of custom Fonts directly inside of Godot.
-Simply load a texture, specify some parameters, and the plugin will generate all necessary font-data.
+This port of the addon was initially made tailored specifically to my project.
+However, I feel like the public would benefit from it as well.
 
-The Plugin adds a new custom Resource "TextureFont", and a Font Editor to edit the Fonts.
-
-Create hand-drawn or pixel art Fonts directly inside of Godot, or add custom emoji to existing fonts.
-
-## Usage
-
-Download the addon, enable it, and create a new Resource with the type "TextureFont". Add a Texture to get started.
-
-Check out the examples included in this repository to see what's possible when creating your own Fonts.
-
-For guides and a complete documentation, see the [Wiki](https://github.com/ElectronicBlueberry/Texture-Fonts/wiki)
+> [!NOTE]  
+> This port uses a very hacky solution which causes errors on every save.
+> This is not easily avoidable until https://github.com/godotengine/godot/issues/82254 is addressed.

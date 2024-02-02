@@ -1,40 +1,40 @@
-tool
+@tool
 extends MarginContainer
 
-signal close
+signal closed
 
 # ------ Resources ------
 
-const file_scene = preload("./Components/File.tscn")
+const FileNode = preload("./Components/File.gd")
+const FileSettings = preload("./FileSettings.gd")
+const TextureViewer = preload("./Components/TextureViewer/TextureViewer.gd")
+const FontSettings = preload("./FontSettings.gd")
+
+const FILE_NODE_SCENE = preload("./Components/File.tscn")
 
 # ------ References ------
 
-onready var file_list := $TabContainer/Textures/Files/Panel/ScrollContainer/FileList
-onready var file_dialog := $TabContainer/Textures/Files/HeadingBox/AddTextureButton/FileDialog
-onready var file_settings := $TabContainer/Textures/FileSettings
-onready var texture_viewer := $TabContainer/Textures/FileSettings/VBoxContainer/HSplitContainer/TextureViewer
-onready var no_selection_overlay := $TabContainer/Textures/FileSettings/NoSelectionOverlay
+@export var file_list: Container
+@export var file_dialog: FileDialog
+@export var file_settings: FileSettings
+@export var texture_viewer: TextureViewer
+@export var no_selection_overlay: ColorRect
 
-onready var font_preview := $"TabContainer/Font Settings/Preview"
-onready var font_settings := $"TabContainer/Font Settings"
+@export var font_settings: FontSettings
+@onready var font_preview: Container = font_settings.preview
 
 # ------ Variables ------
 
-var selected_file_node
-var file_nodes: Array = []
+var selected_file_node: FileNode
+var file_nodes: Array[FileNode] = []
 var font_ref: WeakRef
 
 # ------ Inherited Methods -----
 
-func _ready():
-	file_settings.connect("change", self, "queue_save")
-	font_settings.connect("change", self, "queue_save")
-
 # ------ Methods ------
 
-
-# reset editor, and populate for new font
-func edit_font(new_font) -> void:	
+# Reset editor, and populate for new font.
+func edit_font(new_font: TextureFont) -> void:
 	if font_ref:
 		save_now()
 	
@@ -44,12 +44,13 @@ func edit_font(new_font) -> void:
 	
 	file_nodes.clear()
 	
-	no_selection_overlay.visible = true
+	no_selection_overlay.show()
 	
 	for mapping in new_font.texture_mappings:
-		_add_texture_ui(mapping.source_texture)
+		var texture := ImageTexture.create_from_image(mapping.source_image)
+		_add_texture_ui(texture)
 	
-	if file_nodes.size() != 0:
+	if not file_nodes.is_empty():
 		change_texture(0)
 	
 	if is_inside_tree():
@@ -57,75 +58,55 @@ func edit_font(new_font) -> void:
 		font_preview.set_font(new_font)
 
 
-func get_font_from_ref() -> Font:
-	var font = font_ref.get_ref()
+func get_font_from_ref() -> TextureFont:
+	var font := font_ref.get_ref()
 	
-	if font: return font
-	else:
-		emit_signal("close")
-		return font
+	if not font:
+		emit_signal("closed")
+	
+	return font
 
 
 func update_overlay():
 	if is_instance_valid(selected_file_node):
-		no_selection_overlay.visible = false
+		no_selection_overlay.hide()
 	else:
-		no_selection_overlay.visible = true
-
-
-var _queued_save_count := 0
-func queue_save(timeout := 2.5):
-	_queued_save_count += 1
-	
-	if not is_inside_tree():
-		return
-	
-	var timer = Timer.new()
-	add_child(timer)
-	timer.start(2.5)
-	yield(timer, "timeout")
-	
-	_queued_save_count -= 1
-	if _queued_save_count == 0:
-		_save()
-	elif _queued_save_count < 0:
-		_queued_save_count += 1
-
+		no_selection_overlay.show()
 
 func save_now():
-	_queued_save_count = 0
 	_save()
 
 
 func _save():
 	if font_ref and font_ref.get_ref():
-		var font = get_font_from_ref()
+		var font := get_font_from_ref()
 		
 		font.build_font()
 		
 		if font.resource_path == "":
 			return
 		
-		var error := ResourceSaver.save(font.resource_path, font)
-		if error != OK:
-			push_error("Failed to Save Font with Path: " + font.resource_path + ". Error Code: " + String(error))
-		else:
-			print("Saved Font: " + font.resource_path)
+		#var error := ResourceSaver.save(font, font.resource_path)
+		#if error != OK:
+			#push_error("Failed to Save Font with Path: " + font.resource_path + ". Error Code: " + str(error))
+		#else:
+			#print("Saved Font: " + font.resource_path)
 	else:
-		emit_signal("close")
+		emit_signal("closed")
 
 # ------ Actions ------
 
 
-func add_texture(texture: Texture, idx := -1):
+func add_image(image: Image, idx := -1):
+	var texture := ImageTexture.create_from_image(image)
+	texture.set_meta("original_image_resource_path", image.resource_path)
 	_add_texture_ui(texture, idx)
 	var font = get_font_from_ref()
-	font.add_texture(texture)
+	font.add_image(image)
 	change_texture(file_list.get_child_count() - 1)
-	queue_save()
 
-func _add_texture_ui(texture: Texture, idx := -1):
-	var file_node := file_scene.instance()
+func _add_texture_ui(texture: Texture2D, idx := -1):
+	var file_node := FILE_NODE_SCENE.instantiate()
 	
 	file_list.add_child(file_node)
 	file_node.set_texture(texture)
@@ -135,37 +116,38 @@ func _add_texture_ui(texture: Texture, idx := -1):
 		file_list.move_child(file_node, idx)
 		file_nodes.insert(idx, file_node)
 	
-	file_node.connect("file_removed", self, "_on_file_removed")
-	file_node.connect("file_changed", self, "_on_file_changed")
+	file_node.file_removed.connect(_on_file_removed)
+	file_node.file_changed.connect(_on_file_changed)
 
 
-func delete_texture(node):
-	var index = file_nodes.find(node)
+func delete_texture(node: Node):
+	var index := file_nodes.find(node)
 	node.queue_free()
-	file_nodes.remove(index)
+	file_nodes.remove_at(index)
 	
 	if node == selected_file_node:
 		selected_file_node = null
 	
-	var font = get_font_from_ref()
-	font.remove_texture(index)
+	var font := get_font_from_ref()
+	font.remove_image(index)
 	
 	update_overlay()
-	queue_save()
 
 
 func change_texture(index: int):
-	var file = file_nodes[index]
+	var file := file_nodes[index]
 	
 	if is_instance_valid(selected_file_node):
 		selected_file_node.selected = false
 	
-	var font = get_font_from_ref()
+	var font := get_font_from_ref()
 	
 	if is_instance_valid(file):
 		file.selected = true
 		selected_file_node = file
-		texture_viewer.set_texture(font.texture_mappings[index].scaled_texture)
+		var texture := ImageTexture.create_from_image(font.texture_mappings[index].scaled_image)
+		texture.set_meta("original_image_resource_path", font.texture_mappings[index].scaled_image.resource_path)
+		texture_viewer.set_texture(texture)
 	
 	file_settings.set_mapping(font.texture_mappings[index])
 	texture_viewer.set_mapping(font.texture_mappings[index])
@@ -175,10 +157,10 @@ func change_texture(index: int):
 
 # ------ Signals ------
 
-func _on_file_removed(file):
+func _on_file_removed(file: FileNode):
 	if file == selected_file_node:
 		selected_file_node = null
-		if not file_nodes.empty():
+		if not file_nodes.is_empty():
 			selected_file_node = file_nodes.front()
 			selected_file_node.selected = true
 	
@@ -186,8 +168,8 @@ func _on_file_removed(file):
 	update_overlay()
 
 
-func _on_file_changed(file):
-	var idx = file_nodes.find(file)
+func _on_file_changed(file: FileNode):
+	var idx := file_nodes.find(file)
 	if idx == -1:
 		return
 	
@@ -198,7 +180,12 @@ func _on_AddTextureButton_pressed():
 	file_dialog.popup_centered()
 
 
-func _on_FileDialog_file_selected(path):
-	var texture = load(path)
-	if texture is Texture:
-		add_texture(texture)
+func _on_FileDialog_file_selected(path: String):
+	# FIXME: Some sort of compatibility with existing TextureFonts.
+	# No actually I should just go back to using Textures instead of Images. Namesake of the addon.
+	var image := load(path)
+	print(image)
+	if image is Image:
+		add_image(image)
+	else:
+		printerr("Error loading image at path ", path)

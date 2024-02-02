@@ -1,15 +1,15 @@
-tool
+@tool
 extends MarginContainer
 
-signal file_removed
-signal file_changed
+signal file_removed(itself)
+signal file_changed(itself)
 
-onready var name_label := $MarginContainer/HBoxContainer/ClipLabel/Label
-onready var preview := $MarginContainer/HBoxContainer/ImageContainer/TexturePreview
-onready var panel := $Panel
+@onready var name_label := $MarginContainer/HBoxContainer/ClipLabel/Label
+@onready var preview := $MarginContainer/HBoxContainer/ImageContainer/TexturePreview
+@onready var panel := $Panel
 
-var texture: Texture
-onready var selected := false setget set_selected, get_selected
+var texture: Texture2D
+@onready var selected := false: get = get_selected, set = set_selected
 var _selected: bool
 func set_selected(new_selected: bool):
 	_selected = new_selected
@@ -17,7 +17,7 @@ func set_selected(new_selected: bool):
 	if not is_inside_tree():
 		return
 	
-	var stylebox: StyleBoxFlat = panel.get("custom_styles/panel")
+	var stylebox: StyleBoxFlat = panel.get("theme_override_styles/panel")
 	
 	if new_selected:
 		stylebox.bg_color.a = 0.2
@@ -28,16 +28,16 @@ func set_selected(new_selected: bool):
 func get_selected() -> bool:
 	return _selected
 
-func set_texture(new_texture: Texture):
+func set_texture(new_texture: Texture2D):
 	if is_inside_tree():
-		name_label.text = new_texture.resource_path
+		name_label.text = new_texture.get_meta("original_image_resource_path", "Image")
 		preview.texture = new_texture
 	texture = new_texture
 
 
 func _on_DeleteButton_pressed():
 	emit_signal("file_removed", self)
-	self.queue_free()
+	queue_free()
 
 
 func _on_ToolButton_pressed():
