@@ -27,11 +27,9 @@ var texture_mappings: Array[Mapping]:
 var font_settings: Settings = Settings.new()
 
 
-func add_image(image: Image) -> void:
-	set_texture_image(0, FONT_SIZE, get_texture_count(0, FONT_SIZE), image)
-	
+func add_texture(texture: Texture2D) -> void:
 	var mapping := Mapping.new()
-	mapping.set_image(image)
+	mapping.set_texture(texture)
 	mapping.rect_size = DEFAULT_TEXTURE_MAPPING.rect_size
 	mapping.rect_gap = DEFAULT_TEXTURE_MAPPING.rect_gap
 	mapping.texture_offset = DEFAULT_TEXTURE_MAPPING.texture_offset
@@ -39,7 +37,7 @@ func add_image(image: Image) -> void:
 	
 	texture_mappings.append(mapping)
 
-func remove_image(index: int) -> void:
+func remove_texture_at(index: int) -> void: # remove_texture conflicts with existing method.
 	texture_mappings.remove_at(index)
 
 

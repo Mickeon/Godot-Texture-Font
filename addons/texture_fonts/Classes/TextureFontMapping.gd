@@ -7,12 +7,22 @@ const INVALID_CHAR_POS := Vector2.INF
 const INVALID_CHAR_RECT := Rect2(Vector2.INF, Vector2.INF)
 
 
-@export var source_image: Image
-@export var scaled_image: Image
+@export var source_texture: Texture2D:
+	set(new):
+		source_texture = new
+		if source_texture:
+			source_image = source_texture.get_image()
+			scaled_image = create_scaled_image()
+		else:
+			print("Source texture is null for this texturefontmapping")
+var source_image: Image
+var scaled_image: Image
 
-func set_image(new_image: Image):
-	source_image = new_image
-	scaled_image = create_scaled_image()
+
+func set_texture(new_texture: Texture2D):
+	source_texture = new_texture
+	#source_image = source_texture.get_image()
+	#scaled_image = create_scaled_image()
 func get_image() -> Image:
 	return scaled_image
 

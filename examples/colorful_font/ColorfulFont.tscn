@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://0d84pfj7na3r"]
+[gd_scene load_steps=4 format=3 uid="uid://0d84pfj7na3r"]
 
+[ext_resource type="Texture2D" uid="uid://bsb7psa84262q" path="res://examples/colorful_font/ColorfulBlockFont.png" id="1_ici5n"]
 [ext_resource type="FontFile" uid="uid://bga78phngq4am" path="res://examples/colorful_font/colorful_font.tres" id="1_w0odp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ixye"]
@@ -46,6 +47,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+texture = ExtResource("1_ici5n")
 stretch_mode = 4
 
 [node name="ColorRect2" type="ColorRect" parent="Example/VBoxContainer/HBoxContainer"]

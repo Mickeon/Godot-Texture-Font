@@ -33,67 +33,67 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_stretch_ratio = 2.0
 script = ExtResource("6")
-file_list = NodePath("TabContainer/Images/Files/Panel/ScrollContainer/FileList")
-file_dialog = NodePath("TabContainer/Images/Files/HeadingBox/AddTextureButton/FileDialog")
-file_settings = NodePath("TabContainer/Images/FileSettings")
-texture_viewer = NodePath("TabContainer/Images/FileSettings/VBoxContainer/HSplitContainer/TextureViewer")
-no_selection_overlay = NodePath("TabContainer/Images/FileSettings/NoSelectionOverlay")
+file_list = NodePath("TabContainer/Textures/Files/Panel/ScrollContainer/FileList")
+file_dialog = NodePath("TabContainer/Textures/Files/HeadingBox/AddTextureButton/FileDialog")
+file_settings = NodePath("TabContainer/Textures/FileSettings")
+texture_viewer = NodePath("TabContainer/Textures/FileSettings/VBoxContainer/HSplitContainer/TextureViewer")
+no_selection_overlay = NodePath("TabContainer/Textures/FileSettings/NoSelectionOverlay")
 font_settings = NodePath("TabContainer/Font Settings")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Images" type="HSplitContainer" parent="TabContainer"]
+[node name="Textures" type="HSplitContainer" parent="TabContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Files" type="VBoxContainer" parent="TabContainer/Images"]
+[node name="Files" type="VBoxContainer" parent="TabContainer/Textures"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HeadingBox" type="HBoxContainer" parent="TabContainer/Images/Files"]
+[node name="HeadingBox" type="HBoxContainer" parent="TabContainer/Textures/Files"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Images/Files/HeadingBox"]
+[node name="Label" type="Label" parent="TabContainer/Textures/Files/HeadingBox"]
 layout_mode = 2
 text = "Files"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Images/Files/HeadingBox"]
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Textures/Files/HeadingBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddTextureButton" type="Button" parent="TabContainer/Images/Files/HeadingBox"]
+[node name="AddTextureButton" type="Button" parent="TabContainer/Textures/Files/HeadingBox"]
 layout_mode = 2
 text = "Add"
 
-[node name="FileDialog" type="FileDialog" parent="TabContainer/Images/Files/HeadingBox/AddTextureButton"]
+[node name="FileDialog" type="FileDialog" parent="TabContainer/Textures/Files/HeadingBox/AddTextureButton"]
 title = "Open a File"
 size = Vector2i(312, 280)
 ok_button_text = "Open"
 file_mode = 0
 filters = PackedStringArray("*.png, *.bmp, *.dds, *.exr, *.hdr, *.jpg, *.jpeg, *.tga, *.svg, *.svgz, *.webp; Textures")
 
-[node name="Panel" type="Panel" parent="TabContainer/Images/Files"]
+[node name="Panel" type="Panel" parent="TabContainer/Textures/Files"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Images/Files/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Textures/Files/Panel"]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="FileList" type="VBoxContainer" parent="TabContainer/Images/Files/Panel/ScrollContainer"]
+[node name="FileList" type="VBoxContainer" parent="TabContainer/Textures/Files/Panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FileSettings" type="MarginContainer" parent="TabContainer/Images" node_paths=PackedStringArray("size_edit", "gap", "offset", "chars", "texture_viewer")]
+[node name="FileSettings" type="MarginContainer" parent="TabContainer/Textures" node_paths=PackedStringArray("size_edit", "gap", "offset", "chars", "texture_viewer")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -105,53 +105,53 @@ offset = NodePath("VBoxContainer/RectSettings/Offset")
 chars = NodePath("VBoxContainer/HSplitContainer/HBoxContainer/TextEdit")
 texture_viewer = NodePath("VBoxContainer/HSplitContainer/TextureViewer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Images/FileSettings"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Textures/FileSettings"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RectSettings" type="HBoxContainer" parent="TabContainer/Images/FileSettings/VBoxContainer"]
+[node name="RectSettings" type="HBoxContainer" parent="TabContainer/Textures/FileSettings/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Size" parent="TabContainer/Images/FileSettings/VBoxContainer/RectSettings" instance=ExtResource("1")]
+[node name="Size" parent="TabContainer/Textures/FileSettings/VBoxContainer/RectSettings" instance=ExtResource("1")]
 layout_mode = 2
 min_value = Vector2(1, 1)
 value = Vector2(1, 1)
 label = "Rectangle Size"
 
-[node name="Gap" parent="TabContainer/Images/FileSettings/VBoxContainer/RectSettings" instance=ExtResource("1")]
+[node name="Gap" parent="TabContainer/Textures/FileSettings/VBoxContainer/RectSettings" instance=ExtResource("1")]
 layout_mode = 2
 min_value = Vector2(0, 0)
 label = "Rectangle Gap"
 
-[node name="Offset" parent="TabContainer/Images/FileSettings/VBoxContainer/RectSettings" instance=ExtResource("1")]
+[node name="Offset" parent="TabContainer/Textures/FileSettings/VBoxContainer/RectSettings" instance=ExtResource("1")]
 layout_mode = 2
 min_value = Vector2(0, 0)
 label = "Start Offset"
 
-[node name="HSplitContainer" type="HSplitContainer" parent="TabContainer/Images/FileSettings/VBoxContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="TabContainer/Textures/FileSettings/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="VBoxContainer" parent="TabContainer/Images/FileSettings/VBoxContainer/HSplitContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="TabContainer/Textures/FileSettings/VBoxContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HeadingBox" type="HBoxContainer" parent="TabContainer/Images/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer"]
+[node name="HeadingBox" type="HBoxContainer" parent="TabContainer/Textures/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CharactersLabel" type="Label" parent="TabContainer/Images/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer/HeadingBox"]
+[node name="CharactersLabel" type="Label" parent="TabContainer/Textures/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer/HeadingBox"]
 layout_mode = 2
-text = "Characters in the Image"
+text = "Characters in the Texture"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Images/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer/HeadingBox"]
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Textures/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer/HeadingBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextEdit" type="TextEdit" parent="TabContainer/Images/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="TabContainer/Textures/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -159,18 +159,19 @@ theme_override_fonts/font = SubResource("1")
 draw_tabs = true
 draw_spaces = true
 
-[node name="TextureViewer" parent="TabContainer/Images/FileSettings/VBoxContainer/HSplitContainer" instance=ExtResource("4")]
+[node name="TextureViewer" parent="TabContainer/Textures/FileSettings/VBoxContainer/HSplitContainer" instance=ExtResource("4")]
 layout_mode = 2
 
-[node name="NoSelectionOverlay" type="ColorRect" parent="TabContainer/Images/FileSettings"]
+[node name="NoSelectionOverlay" type="ColorRect" parent="TabContainer/Textures/FileSettings"]
+visible = false
 layout_mode = 2
 color = Color(0.14902, 0.172549, 0.231373, 0.784314)
 
-[node name="Label" type="Label" parent="TabContainer/Images/FileSettings/NoSelectionOverlay"]
+[node name="Label" type="Label" parent="TabContainer/Textures/FileSettings/NoSelectionOverlay"]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Add or Select an Image"
+text = "Add or Select a Texture"
 
 [node name="Font Settings" parent="TabContainer" instance=ExtResource("6_yh3rd")]
 visible = false
@@ -201,9 +202,9 @@ grow_vertical = 2
 texture = ExtResource("2")
 stretch_mode = 4
 
-[connection signal="pressed" from="TabContainer/Images/Files/HeadingBox/AddTextureButton" to="." method="_on_AddTextureButton_pressed"]
-[connection signal="file_selected" from="TabContainer/Images/Files/HeadingBox/AddTextureButton/FileDialog" to="." method="_on_FileDialog_file_selected"]
-[connection signal="value_changed" from="TabContainer/Images/FileSettings/VBoxContainer/RectSettings/Size" to="TabContainer/Images/FileSettings" method="_on_Size_value_changed"]
-[connection signal="value_changed" from="TabContainer/Images/FileSettings/VBoxContainer/RectSettings/Gap" to="TabContainer/Images/FileSettings" method="_on_Gap_value_changed"]
-[connection signal="value_changed" from="TabContainer/Images/FileSettings/VBoxContainer/RectSettings/Offset" to="TabContainer/Images/FileSettings" method="_on_Offset_value_changed"]
-[connection signal="text_changed" from="TabContainer/Images/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer/TextEdit" to="TabContainer/Images/FileSettings" method="_on_TextEdit_text_changed"]
+[connection signal="pressed" from="TabContainer/Textures/Files/HeadingBox/AddTextureButton" to="." method="_on_AddTextureButton_pressed"]
+[connection signal="file_selected" from="TabContainer/Textures/Files/HeadingBox/AddTextureButton/FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="value_changed" from="TabContainer/Textures/FileSettings/VBoxContainer/RectSettings/Size" to="TabContainer/Textures/FileSettings" method="_on_Size_value_changed"]
+[connection signal="value_changed" from="TabContainer/Textures/FileSettings/VBoxContainer/RectSettings/Gap" to="TabContainer/Textures/FileSettings" method="_on_Gap_value_changed"]
+[connection signal="value_changed" from="TabContainer/Textures/FileSettings/VBoxContainer/RectSettings/Offset" to="TabContainer/Textures/FileSettings" method="_on_Offset_value_changed"]
+[connection signal="text_changed" from="TabContainer/Textures/FileSettings/VBoxContainer/HSplitContainer/HBoxContainer/TextEdit" to="TabContainer/Textures/FileSettings" method="_on_TextEdit_text_changed"]

@@ -1,8 +1,16 @@
-[gd_resource type="FontFile" script_class="TextureFont" load_steps=5 format=3 uid="uid://4fllteup1teo"]
+[gd_resource type="FontFile" script_class="TextureFont" load_steps=20 format=3 uid="uid://4fllteup1teo"]
 
 [ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFont.gd" id="1"]
 [ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontSettings.gd" id="2"]
+[ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontMapping.gd" id="4_k2udr"]
 [ext_resource type="FontFile" uid="uid://dguexteyv3y0c" path="res://examples/emoji/ArialLatin.fnt" id="5"]
+[ext_resource type="Texture2D" uid="uid://dtdjpxc70v8we" path="res://examples/emoji/emojis/1f60d.svg" id="5_as1dn"]
+[ext_resource type="Texture2D" uid="uid://cdh1vjdiyuym7" path="res://examples/emoji/emojis/1f62e.svg" id="6_y6roj"]
+[ext_resource type="Texture2D" uid="uid://c6nc6gry7ek7g" path="res://examples/emoji/emojis/1f92f.svg" id="7_aaga2"]
+[ext_resource type="Texture2D" uid="uid://geqbwvinpoxt" path="res://examples/emoji/emojis/1f448.svg" id="8_qyo2w"]
+[ext_resource type="Texture2D" uid="uid://bhee34mjxkxxu" path="res://examples/emoji/emojis/1f525.svg" id="9_i8rpc"]
+[ext_resource type="Texture2D" uid="uid://cktc5vpbanmn0" path="res://examples/emoji/emojis/1f622.svg" id="10_xx6ii"]
+[ext_resource type="Texture2D" uid="uid://bo52mkhfmbnpx" path="res://examples/emoji/emojis/2764.svg" id="11_52kfi"]
 
 [sub_resource type="Resource" id="1"]
 script = ExtResource("2")
@@ -16,6 +24,62 @@ ascent = 0.0
 preview_color = Color(0.12549, 0.141176, 0.192157, 1)
 preview_chars = ""
 
+[sub_resource type="Resource" id="Resource_iel3i"]
+script = ExtResource("4_k2udr")
+source_texture = ExtResource("5_as1dn")
+rect_size = Vector2(36, 36)
+rect_gap = Vector2(0, 0)
+texture_offset = Vector2(0, 0)
+chars = "😍"
+
+[sub_resource type="Resource" id="Resource_8y0i0"]
+script = ExtResource("4_k2udr")
+source_texture = ExtResource("6_y6roj")
+rect_size = Vector2(36, 36)
+rect_gap = Vector2(0, 0)
+texture_offset = Vector2(0, 0)
+chars = "😮"
+
+[sub_resource type="Resource" id="Resource_qyswq"]
+script = ExtResource("4_k2udr")
+source_texture = ExtResource("7_aaga2")
+rect_size = Vector2(36, 36)
+rect_gap = Vector2(0, 0)
+texture_offset = Vector2(0, 0)
+chars = "🤯"
+
+[sub_resource type="Resource" id="Resource_d87oc"]
+script = ExtResource("4_k2udr")
+source_texture = ExtResource("8_qyo2w")
+rect_size = Vector2(36, 36)
+rect_gap = Vector2(0, 0)
+texture_offset = Vector2(0, 0)
+chars = "👈"
+
+[sub_resource type="Resource" id="Resource_hsd4g"]
+script = ExtResource("4_k2udr")
+source_texture = ExtResource("9_i8rpc")
+rect_size = Vector2(36, 36)
+rect_gap = Vector2(0, 0)
+texture_offset = Vector2(0, 0)
+chars = "🔥"
+
+[sub_resource type="Resource" id="Resource_6rn77"]
+script = ExtResource("4_k2udr")
+source_texture = ExtResource("10_xx6ii")
+rect_size = Vector2(36, 36)
+rect_gap = Vector2(0, 0)
+texture_offset = Vector2(0, 0)
+chars = "😢"
+
+[sub_resource type="Resource" id="Resource_grqp4"]
+script = ExtResource("4_k2udr")
+source_texture = ExtResource("11_52kfi")
+rect_size = Vector2(36, 36)
+rect_gap = Vector2(0, 0)
+texture_offset = Vector2(0, 0)
+chars = "♥"
+
 [resource]
 fallbacks = Array[Font]([ExtResource("5")])
 fixed_size = 16
@@ -24,12 +88,47 @@ cache/0/16/0/descent = 36.0
 cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
-cache/0/16/0/glyphs/0/advance = Vector2(0, 0)
-cache/0/16/0/glyphs/0/offset = Vector2(0, 0)
-cache/0/16/0/glyphs/0/size = Vector2(0, 0)
-cache/0/16/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
-cache/0/16/0/glyphs/0/texture_idx = -1
+cache/0/16/0/glyphs/128525/advance = Vector2(38, 0)
+cache/0/16/0/glyphs/128525/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/128525/size = Vector2(36, 36)
+cache/0/16/0/glyphs/128525/uv_rect = Rect2(0, 0, 36, 36)
+cache/0/16/0/glyphs/128525/texture_idx = 0
+cache/0/16/0/glyphs/128558/advance = Vector2(38, 0)
+cache/0/16/0/glyphs/128558/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/128558/size = Vector2(36, 36)
+cache/0/16/0/glyphs/128558/uv_rect = Rect2(0, 0, 36, 36)
+cache/0/16/0/glyphs/128558/texture_idx = 1
+cache/0/16/0/glyphs/129327/advance = Vector2(36, 0)
+cache/0/16/0/glyphs/129327/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/129327/size = Vector2(34, 36)
+cache/0/16/0/glyphs/129327/uv_rect = Rect2(1, 0, 34, 36)
+cache/0/16/0/glyphs/129327/texture_idx = 2
+cache/0/16/0/glyphs/128072/advance = Vector2(38, 0)
+cache/0/16/0/glyphs/128072/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/128072/size = Vector2(36, 36)
+cache/0/16/0/glyphs/128072/uv_rect = Rect2(0, 0, 36, 36)
+cache/0/16/0/glyphs/128072/texture_idx = 3
+cache/0/16/0/glyphs/128293/advance = Vector2(36, 0)
+cache/0/16/0/glyphs/128293/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/128293/size = Vector2(34, 36)
+cache/0/16/0/glyphs/128293/uv_rect = Rect2(1, 0, 34, 36)
+cache/0/16/0/glyphs/128293/texture_idx = 4
+cache/0/16/0/glyphs/128546/advance = Vector2(38, 0)
+cache/0/16/0/glyphs/128546/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/128546/size = Vector2(36, 36)
+cache/0/16/0/glyphs/128546/uv_rect = Rect2(0, 0, 36, 36)
+cache/0/16/0/glyphs/128546/texture_idx = 5
+cache/0/16/0/glyphs/9829/advance = Vector2(38, 0)
+cache/0/16/0/glyphs/9829/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/9829/size = Vector2(36, 36)
+cache/0/16/0/glyphs/9829/uv_rect = Rect2(0, 0, 36, 36)
+cache/0/16/0/glyphs/9829/texture_idx = 6
+cache/0/16/0/glyphs/32/advance = Vector2(2, 0)
+cache/0/16/0/glyphs/32/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/32/size = Vector2(0, 0)
+cache/0/16/0/glyphs/32/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/16/0/glyphs/32/texture_idx = 0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 script = ExtResource("1")
-texture_mappings = Array[Resource("res://addons/texture_fonts/Classes/TextureFontMapping.gd")]([])
+texture_mappings = Array[ExtResource("4_k2udr")]([SubResource("Resource_iel3i"), SubResource("Resource_8y0i0"), SubResource("Resource_qyswq"), SubResource("Resource_d87oc"), SubResource("Resource_hsd4g"), SubResource("Resource_6rn77"), SubResource("Resource_grqp4")])
 font_settings = SubResource("1")

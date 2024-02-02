@@ -40,6 +40,7 @@ func set_font(new_font: TextureFont):
 		child.queue_free()
 	
 	for child in kerning_pair_list.get_children():
+		print(child)
 		kerning_pair_list.remove_child(child)
 		child.queue_free()
 	

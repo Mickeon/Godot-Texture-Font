@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds46rmpgvbwtd"]
+[gd_scene load_steps=3 format=3 uid="uid://ds46rmpgvbwtd"]
 
+[ext_resource type="Texture2D" uid="uid://c3obsvnf8xl3b" path="res://examples/numbers/CostFontSheet.png" id="1_1r1lb"]
 [ext_resource type="FontFile" uid="uid://cyv6hhulbbgc6" path="res://examples/numbers/cost_font.tres" id="1_o5quq"]
 
 [node name="Numbers" type="MarginContainer"]
@@ -36,6 +37,7 @@ offset_bottom = 105.0
 
 [node name="TextureRect" type="TextureRect" parent="Example/ColorRect"]
 layout_mode = 0
+texture = ExtResource("1_1r1lb")
 
 [node name="Card" type="ColorRect" parent="Example"]
 layout_mode = 0

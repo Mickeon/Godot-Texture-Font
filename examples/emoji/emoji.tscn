@@ -17,7 +17,7 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_fonts/font = ExtResource("1")
-text = "☼● This are emojis ◌
+text = "☼● These are emojis ◌
 
 Well, only sort of. Godot 3 can only display unicode smybols up to \\U+FFFF; ☺
 

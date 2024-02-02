@@ -47,8 +47,7 @@ func edit_font(new_font: TextureFont) -> void:
 	no_selection_overlay.show()
 	
 	for mapping in new_font.texture_mappings:
-		var texture := ImageTexture.create_from_image(mapping.source_image)
-		_add_texture_ui(texture)
+		_add_texture_ui(mapping.source_texture)
 	
 	if not file_nodes.is_empty():
 		change_texture(0)
@@ -97,12 +96,10 @@ func _save():
 # ------ Actions ------
 
 
-func add_image(image: Image, idx := -1):
-	var texture := ImageTexture.create_from_image(image)
-	texture.set_meta("original_image_resource_path", image.resource_path)
+func add_texture(texture: Texture2D, idx := -1):
 	_add_texture_ui(texture, idx)
 	var font = get_font_from_ref()
-	font.add_image(image)
+	font.add_texture(texture)
 	change_texture(file_list.get_child_count() - 1)
 
 func _add_texture_ui(texture: Texture2D, idx := -1):
@@ -129,7 +126,7 @@ func delete_texture(node: Node):
 		selected_file_node = null
 	
 	var font := get_font_from_ref()
-	font.remove_image(index)
+	font.remove_texture_at(index)
 	
 	update_overlay()
 
@@ -146,7 +143,6 @@ func change_texture(index: int):
 		file.selected = true
 		selected_file_node = file
 		var texture := ImageTexture.create_from_image(font.texture_mappings[index].scaled_image)
-		texture.set_meta("original_image_resource_path", font.texture_mappings[index].scaled_image.resource_path)
 		texture_viewer.set_texture(texture)
 	
 	file_settings.set_mapping(font.texture_mappings[index])
@@ -181,11 +177,8 @@ func _on_AddTextureButton_pressed():
 
 
 func _on_FileDialog_file_selected(path: String):
-	# FIXME: Some sort of compatibility with existing TextureFonts.
-	# No actually I should just go back to using Textures instead of Images. Namesake of the addon.
-	var image := load(path)
-	print(image)
-	if image is Image:
-		add_image(image)
+	var texture := load(path)
+	if texture is Texture2D:
+		add_texture(texture)
 	else:
-		printerr("Error loading image at path ", path)
+		printerr("Error loading Texture2D at path ", path, " (Type: ", texture.get_class(), ")")

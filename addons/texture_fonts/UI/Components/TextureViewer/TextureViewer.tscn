@@ -36,7 +36,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Heading"]
 layout_mode = 2
-text = "View Image"
+text = "View Texture"
 
 [node name="HSeparator" type="HSeparator" parent="Heading"]
 layout_mode = 2

@@ -22,6 +22,8 @@ var font_settings: TextureFont.Settings
 # 	kerning: float
 # }
 func set_kerning_pair(new_kerning: Dictionary):
+	if not is_node_ready(): await ready
+	
 	fromLine.text = new_kerning.from
 	toLine.text = new_kerning.to
 	offsetLine.value = new_kerning.kerning

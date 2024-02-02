@@ -30,7 +30,7 @@ func get_selected() -> bool:
 
 func set_texture(new_texture: Texture2D):
 	if is_inside_tree():
-		name_label.text = new_texture.get_meta("original_image_resource_path", "Image")
+		name_label.text = new_texture.resource_path
 		preview.texture = new_texture
 	texture = new_texture
 

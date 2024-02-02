@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFont.gd" id="1"]
 [ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontSettings.gd" id="2"]
-[ext_resource type="Image" uid="uid://bsb7psa84262q" path="res://examples/colorful_font/ColorfulBlockFont.png" id="3_xmlf7"]
-[ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontMapping.gd" id="4"]
+[ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontMapping.gd" id="3_fk3uw"]
+[ext_resource type="Texture2D" uid="uid://bsb7psa84262q" path="res://examples/colorful_font/ColorfulBlockFont.png" id="4_bpuna"]
 
 [sub_resource type="Resource" id="1"]
 script = ExtResource("2")
@@ -46,10 +46,9 @@ the quick brown fox jumps over the lazy dog
 9-4=5
 some_func(val: String = \"default\");"
 
-[sub_resource type="Resource" id="Resource_s77to"]
-script = ExtResource("4")
-source_image = ExtResource("3_xmlf7")
-scaled_image = ExtResource("3_xmlf7")
+[sub_resource type="Resource" id="Resource_qacvb"]
+script = ExtResource("3_fk3uw")
+source_texture = ExtResource("4_bpuna")
 rect_size = Vector2(32, 32)
 rect_gap = Vector2(0, 0)
 texture_offset = Vector2(0, 0)
@@ -67,7 +66,7 @@ yz.,_-:\"
 [resource]
 fixed_size = 16
 cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 40.0
+cache/0/16/0/descent = 34.0
 cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
@@ -478,5 +477,5 @@ cache/0/16/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
 cache/0/16/0/glyphs/0/texture_idx = -1
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 script = ExtResource("1")
-texture_mappings = Array[ExtResource("4")]([SubResource("Resource_s77to")])
+texture_mappings = Array[ExtResource("3_fk3uw")]([SubResource("Resource_qacvb")])
 font_settings = SubResource("1")

@@ -67,6 +67,9 @@ func _ready():
 	min_value = min_value
 	max_value = max_value
 	suffix = suffix
+	
+	x_node.get_line_edit().text_changed.connect(_update_suffix.bind(x_node).unbind(1))
+	y_node.get_line_edit().text_changed.connect(_update_suffix.bind(y_node).unbind(1))
 
 
 func set_value_no_signal(new_value: Vector2):
