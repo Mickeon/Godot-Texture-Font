@@ -6,11 +6,11 @@ signal changed
 const Vector2Edit = preload("./Components/Vector2Edit.gd")
 const TextureViewer = preload("./Components/TextureViewer/TextureViewer.gd")
 
-@export var size_edit: Vector2Edit# = $VBoxContainer/RectSettings/Size
-@export var gap: Vector2Edit# = $VBoxContainer/RectSettings/Gap
-@export var offset: Vector2Edit# = $VBoxContainer/RectSettings/Offset
-@export var chars: TextEdit# = $VBoxContainer/HSplitContainer/HBoxContainer/TextEdit
-@export var texture_viewer: TextureViewer# = $VBoxContainer/HSplitContainer/TextureViewer
+@export var size_edit: Vector2Edit
+@export var gap: Vector2Edit
+@export var offset: Vector2Edit
+@export var chars: TextEdit
+@export var texture_viewer: TextureViewer
 
 #@export var scale_edit: SpinBox = $VBoxContainer/RectSettings/Scaling/HBoxContainer/Scale
 #@export var interpolation: OptionButton = $VBoxContainer/RectSettings/Scaling/HBoxContainer/Interpolation

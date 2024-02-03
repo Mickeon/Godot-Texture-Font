@@ -17,10 +17,10 @@ const FILE_NODE_SCENE = preload("./Components/File.tscn")
 @export var file_list: Container
 @export var file_dialog: FileDialog
 @export var file_settings: FileSettings
-@export var texture_viewer: TextureViewer
 @export var no_selection_overlay: ColorRect
-
 @export var font_settings: FontSettings
+
+@onready var texture_viewer: TextureViewer = file_settings.texture_viewer
 @onready var font_preview: Container = font_settings.preview
 
 # ------ Variables ------
