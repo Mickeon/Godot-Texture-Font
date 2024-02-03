@@ -182,3 +182,9 @@ func _on_FileDialog_file_selected(path: String):
 		add_texture(texture)
 	else:
 		printerr("Error loading Texture2D at path ", path, " (Type: ", texture.get_class(), ")")
+
+func _on_Files_textures_dropped(texture_paths: Array[String]) -> void:
+	for path in texture_paths:
+		var texture = load(path)
+		if texture is Texture2D:
+			add_texture(texture)

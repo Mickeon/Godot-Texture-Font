@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5gbh4n4b3ocd"]
+[gd_scene load_steps=7 format=3 uid="uid://b5gbh4n4b3ocd"]
 
 [ext_resource type="Texture2D" uid="uid://sanipjn5peiu" path="res://addons/texture_fonts/Assets/ExternalLink.svg" id="2"]
+[ext_resource type="Script" path="res://addons/texture_fonts/UI/file_list.gd" id="2_8u1ew"]
 [ext_resource type="PackedScene" uid="uid://ud2mcabp2mg0" path="res://addons/texture_fonts/UI/FileSettings.tscn" id="2_0263o"]
 [ext_resource type="Script" path="res://addons/texture_fonts/UI/FontEditor.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://drm7k5iue6ov4" path="res://addons/texture_fonts/UI/FontSettings.tscn" id="6_yh3rd"]
@@ -32,6 +33,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("2_8u1ew")
 
 [node name="HeadingBox" type="HBoxContainer" parent="TabContainer/Textures/Files"]
 layout_mode = 2
@@ -60,6 +62,7 @@ filters = PackedStringArray("*.png, *.bmp, *.dds, *.exr, *.hdr, *.jpg, *.jpeg, *
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Textures/Files/Panel"]
 layout_mode = 0
@@ -115,5 +118,6 @@ grow_vertical = 2
 texture = ExtResource("2")
 stretch_mode = 4
 
+[connection signal="textures_dropped" from="TabContainer/Textures/Files" to="." method="_on_Files_textures_dropped"]
 [connection signal="pressed" from="TabContainer/Textures/Files/HeadingBox/AddTextureButton" to="." method="_on_AddTextureButton_pressed"]
 [connection signal="file_selected" from="TabContainer/Textures/Files/HeadingBox/AddTextureButton/FileDialog" to="." method="_on_FileDialog_file_selected"]
