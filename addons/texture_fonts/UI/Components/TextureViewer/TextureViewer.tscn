@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cjca34ig077sx"]
 
-[ext_resource type="FontFile" uid="uid://vxqsbmlofgoq" path="res://addons/texture_fonts/Assets/Fonts/RobotoMono/RobotoMono-Medium.ttf" id="2"]
+[ext_resource type="FontFile" uid="uid://vxqsbmlofgoq" path="res://addons/texture_fonts/Assets/Fonts/RobotoMono-Medium.ttf" id="2"]
 [ext_resource type="Texture2D" uid="uid://yn34nyba10uy" path="res://addons/texture_fonts/Assets/TransparentBG.png" id="3"]
 [ext_resource type="Script" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureViewer.gd" id="4"]
 [ext_resource type="Script" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureView.gd" id="5"]
@@ -15,6 +15,9 @@ cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/36/0 = Vector2(0, 0)
 cache/0/13/0/ascent = 0.0
 cache/0/13/0/descent = 0.0
 cache/0/13/0/underline_position = 0.0
@@ -22,6 +25,39 @@ cache/0/13/0/underline_thickness = 0.0
 cache/0/13/0/scale = 1.0
 cache/0/13/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/13/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/12/0/ascent = 0.0
+cache/0/12/0/descent = 0.0
+cache/0/12/0/underline_position = 0.0
+cache/0/12/0/underline_thickness = 0.0
+cache/0/12/0/scale = 1.0
+cache/0/12/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+cache/0/32/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/36/0/ascent = 0.0
+cache/0/36/0/descent = 0.0
+cache/0/36/0/underline_position = 0.0
+cache/0/36/0/underline_thickness = 0.0
+cache/0/36/0/scale = 1.0
+cache/0/36/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/36/0 = Vector2(0, 0)
 
 [node name="TextureViewer" type="VBoxContainer"]
 anchors_preset = 15
@@ -102,7 +138,9 @@ mouse_filter = 2
 color = Color(1, 0, 0, 0.431373)
 
 [node name="Label" type="Label" parent="Control/TextureContainer/TextureView/RectPreview"]
-layout_mode = 0
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -114,7 +152,9 @@ offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45098)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.129412, 0.156863, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0.52549, 0.670588)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = SubResource("1")
 text = "a"
 

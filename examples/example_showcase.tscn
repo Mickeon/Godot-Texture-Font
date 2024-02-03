@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://drx6lnr12pia3"]
 
-[ext_resource type="PackedScene" path="res://examples/numbers/Numbers.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://examples/colorful_font/ColorfulFont.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://examples/emoji/emoji.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://ds46rmpgvbwtd" path="res://examples/numbers/Numbers.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://0d84pfj7na3r" path="res://examples/colorful_font/ColorfulFont.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://dfgy2vdka5ahs" path="res://examples/emoji/emoji.tscn" id="3"]
 
 [node name="Showcase" type="TabContainer"]
 anchors_preset = 15

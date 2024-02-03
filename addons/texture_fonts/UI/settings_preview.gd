@@ -1,7 +1,7 @@
 @tool
 extends VBoxContainer
 
-@onready var text_edit: TextEdit = $MarginContainer/TextEdit
+@onready var text_edit: TextEdit = $MarginContainer/TextBox
 @onready var colorpicker: ColorPickerButton = $HeadingBox/ColorPickerButton
 
 func set_font(new_font: FontFile):

@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://drm7k5iue6ov4"]
 
-[ext_resource type="Script" path="res://addons/texture_fonts/UI/FontSettings.gd" id="1_xp1wy"]
-[ext_resource type="PackedScene" uid="uid://cf8py46vfqbf4" path="res://addons/texture_fonts/UI/Components/Vector2Edit.tscn" id="2_f46l3"]
-[ext_resource type="Script" path="res://addons/texture_fonts/UI/Preview.gd" id="3_c313e"]
+[ext_resource type="Script" path="res://addons/texture_fonts/UI/settings.gd" id="1_7tp4l"]
+[ext_resource type="PackedScene" uid="uid://cf8py46vfqbf4" path="res://addons/texture_fonts/UI/Components/Vector2Edit.tscn" id="2_bji2q"]
+[ext_resource type="Script" path="res://addons/texture_fonts/UI/settings_preview.gd" id="3_giqhg"]
 
 [sub_resource type="StyleBoxFlat" id="3"]
 resource_local_to_scene = true
@@ -13,16 +13,16 @@ resource_local_to_scene = true
 bg_color = Color(0.12549, 0.141176, 0.192157, 1)
 
 [node name="Font Settings" type="HSplitContainer" node_paths=PackedStringArray("char_setting_list", "kerning_pair_list", "descent", "ascent", "gap", "alignment", "monospace", "preview", "preview_textbox")]
-script = ExtResource("1_xp1wy")
-char_setting_list = NodePath("HSplitContainer/ListSettings/VSplitContainer/CharSettings/MarginContainer/ScrollContainer/SettingList")
+script = ExtResource("1_7tp4l")
+char_setting_list = NodePath("HSplitContainer/ListSettings/VSplitContainer/CharSettings/MarginContainer/ScrollContainer/CharSettingList")
 kerning_pair_list = NodePath("HSplitContainer/ListSettings/VSplitContainer/Kerning/MarginContainer/ScrollContainer/KerningList")
 descent = NodePath("HSplitContainer/Settings/MarginContainer/Vbox/DescentHBox/Descent")
 ascent = NodePath("HSplitContainer/Settings/MarginContainer/Vbox/AscentHBox/Ascent")
 gap = NodePath("HSplitContainer/Settings/MarginContainer/Vbox/GapHBox/Gap")
 alignment = NodePath("HSplitContainer/Settings/MarginContainer/Vbox/Alignment")
-monospace = NodePath("HSplitContainer/Settings/MarginContainer/Vbox/MonoSpacedHBox/MonoSpaced")
+monospace = NodePath("HSplitContainer/Settings/MarginContainer/Vbox/MonospacedHBox/Monospaced")
 preview = NodePath("Preview")
-preview_textbox = NodePath("Preview/MarginContainer/TextEdit")
+preview_textbox = NodePath("Preview/MarginContainer/TextBox")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 2
@@ -99,17 +99,17 @@ size_flags_horizontal = 3
 min_value = -4096.0
 max_value = 4096.0
 
-[node name="MonoSpacedHBox" type="HBoxContainer" parent="HSplitContainer/Settings/MarginContainer/Vbox"]
+[node name="MonospacedHBox" type="HBoxContainer" parent="HSplitContainer/Settings/MarginContainer/Vbox"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HSplitContainer/Settings/MarginContainer/Vbox/MonoSpacedHBox"]
+[node name="Label" type="Label" parent="HSplitContainer/Settings/MarginContainer/Vbox/MonospacedHBox"]
 layout_mode = 2
 text = "Monospaced:"
 
-[node name="MonoSpaced" type="CheckBox" parent="HSplitContainer/Settings/MarginContainer/Vbox/MonoSpacedHBox"]
+[node name="Monospaced" type="CheckBox" parent="HSplitContainer/Settings/MarginContainer/Vbox/MonospacedHBox"]
 layout_mode = 2
 
-[node name="Alignment" parent="HSplitContainer/Settings/MarginContainer/Vbox" instance=ExtResource("2_f46l3")]
+[node name="Alignment" parent="HSplitContainer/Settings/MarginContainer/Vbox" instance=ExtResource("2_bji2q")]
 layout_mode = 2
 min_value = Vector2(0, 0)
 max_value = Vector2(0, 0)
@@ -200,7 +200,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="SettingList" type="VBoxContainer" parent="HSplitContainer/ListSettings/VSplitContainer/CharSettings/MarginContainer/ScrollContainer"]
+[node name="CharSettingList" type="VBoxContainer" parent="HSplitContainer/ListSettings/VSplitContainer/CharSettings/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -208,7 +208,7 @@ size_flags_vertical = 3
 [node name="Preview" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("3_c313e")
+script = ExtResource("3_giqhg")
 
 [node name="HeadingBox" type="HBoxContainer" parent="Preview"]
 layout_mode = 2
@@ -240,7 +240,7 @@ color = Color(0.12549, 0.141176, 0.192157, 1)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TextEdit" type="TextEdit" parent="Preview/MarginContainer"]
+[node name="TextBox" type="TextEdit" parent="Preview/MarginContainer"]
 texture_filter = 1
 clip_contents = true
 layout_mode = 2
@@ -252,10 +252,10 @@ theme_override_styles/focus = SubResource("2")
 [connection signal="value_changed" from="HSplitContainer/Settings/MarginContainer/Vbox/AscentHBox/Ascent" to="." method="_on_Ascent_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/Settings/MarginContainer/Vbox/DescentHBox/Descent" to="." method="_on_Descent_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/Settings/MarginContainer/Vbox/GapHBox/Gap" to="." method="_on_Gap_value_changed"]
-[connection signal="toggled" from="HSplitContainer/Settings/MarginContainer/Vbox/MonoSpacedHBox/MonoSpaced" to="." method="_on_MonoSpaced_toggled"]
+[connection signal="toggled" from="HSplitContainer/Settings/MarginContainer/Vbox/MonospacedHBox/Monospaced" to="." method="_on_MonoSpaced_toggled"]
 [connection signal="value_changed" from="HSplitContainer/Settings/MarginContainer/Vbox/Alignment" to="." method="_on_Alignment_value_changed"]
 [connection signal="pressed" from="HSplitContainer/ListSettings/VSplitContainer/Kerning/HeadingBox/AddKerningButton" to="." method="_on_AddKerningButton_pressed"]
 [connection signal="pressed" from="HSplitContainer/ListSettings/VSplitContainer/CharSettings/HeadingBox/AddCharSettingButton" to="." method="_on_AddCharSettingButton_pressed"]
 [connection signal="value_changed" from="Preview/HeadingBox/Scale" to="." method="_on_Scale_value_changed"]
 [connection signal="color_changed" from="Preview/HeadingBox/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
-[connection signal="text_changed" from="Preview/MarginContainer/TextEdit" to="." method="_on_TextEdit_text_changed"]
+[connection signal="text_changed" from="Preview/MarginContainer/TextBox" to="." method="_on_TextEdit_text_changed"]

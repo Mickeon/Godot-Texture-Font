@@ -1,7 +1,7 @@
 @tool
 extends EditorPlugin
 
-const FontEditor = preload("./UI/FontEditor.gd")
+const FontEditor = preload("./UI/font_editor.gd")
 
 var _handled_font_ref: WeakRef
 var _font_editor: FontEditor

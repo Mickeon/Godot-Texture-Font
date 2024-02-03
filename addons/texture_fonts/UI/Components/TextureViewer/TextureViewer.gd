@@ -15,6 +15,7 @@ var zoom := 100.0:
 		_zoom = clamp(new_zoom, 10, 5000)
 		texture_view.scale = Vector2(float(_zoom) / 100.0, float(_zoom) / 100.0)
 		texture_view.pivot_offset = texture_view.size / 2.0
+		zoom_spinbox.value = zoom
 	get:
 		return _zoom
 var _zoom := 100.0
@@ -26,19 +27,18 @@ func set_mapping(new_mapping: TextureFont.Mapping):
 
 func zoom_in():
 	zoom *= 1.1
-	zoom_spinbox.value = zoom
 
 func zoom_out():
 	zoom *= 0.9
-	zoom_spinbox.value = zoom
 
 
 func set_texture(texture: Texture2D):
-	if is_inside_tree():
-		texture_container.set_texture(texture)
-		texture_view.texture = texture
-		texture_view.size = texture.get_size()
-		texture_view.pivot_offset = texture_view.size / 2.0
+	if not is_node_ready(): await ready
+	
+	texture_container.set_texture(texture)
+	texture_view.texture = texture
+	texture_view.size = texture.get_size()
+	texture_view.pivot_offset = texture_view.size / 2.0
 
 func _input(event):
 	if not hovering:
@@ -58,10 +58,8 @@ func _input(event):
 func _on_SpinBox_value_changed(value: float):
 	zoom = value
 
-
 func _on_TextureContainer_mouse_entered():
 	hovering = true
-
 
 func _on_TextureContainer_mouse_exited():
 	hovering = false

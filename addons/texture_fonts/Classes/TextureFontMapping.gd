@@ -1,7 +1,7 @@
 @tool
 extends Resource
 
-const CharUtils = preload("../Util/CharUtils.gd")
+const CharUtils = preload("./Utils.gd")
 
 const INVALID_CHAR_POS := Vector2.INF
 const INVALID_CHAR_RECT := Rect2(Vector2.INF, Vector2.INF)
@@ -48,7 +48,7 @@ var scale = 1
 		char_codes = CharUtils.chars_to_codes(new_chars)
 
 # Array[Array[int]] - 2D Array containing integer char codes.
-var char_codes: Array
+var char_codes: Array[Array]
 
 
 func create_scaled_image() -> Image:

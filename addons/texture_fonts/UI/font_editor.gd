@@ -6,9 +6,9 @@ signal closed
 # ------ Resources ------
 
 const FileNode = preload("./Components/File.gd")
-const FileSettings = preload("./FileSettings.gd")
+const MappingSettings = preload("./mapping.gd")
 const TextureViewer = preload("./Components/TextureViewer/TextureViewer.gd")
-const FontSettings = preload("./FontSettings.gd")
+const FontSettings = preload("./settings.gd")
 
 const FILE_NODE_SCENE = preload("./Components/File.tscn")
 
@@ -16,12 +16,12 @@ const FILE_NODE_SCENE = preload("./Components/File.tscn")
 
 @export var file_list: Container
 @export var file_dialog: FileDialog
-@export var file_settings: FileSettings
+@export var mapping_settings: MappingSettings
 @export var no_selection_overlay: ColorRect
 @export var font_settings: FontSettings
 
-@onready var texture_viewer: TextureViewer = file_settings.texture_viewer
-@onready var font_preview: Container = font_settings.preview
+@onready var texture_viewer: TextureViewer = mapping_settings.texture_viewer
+@onready var font_preview: FontSettings.Preview = font_settings.preview
 
 # ------ Variables ------
 
@@ -145,7 +145,7 @@ func change_texture(index: int):
 		var texture := ImageTexture.create_from_image(font.texture_mappings[index].scaled_image)
 		texture_viewer.set_texture(texture)
 	
-	file_settings.set_mapping(font.texture_mappings[index])
+	mapping_settings.set_mapping(font.texture_mappings[index])
 	texture_viewer.set_mapping(font.texture_mappings[index])
 	
 	update_overlay()

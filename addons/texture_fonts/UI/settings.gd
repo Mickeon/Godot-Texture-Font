@@ -3,7 +3,7 @@ extends HSplitContainer
 
 signal changed
 
-const Preview = preload("./Preview.gd")
+const Preview = preload("./settings_preview.gd")
 const Vector2Edit = preload("./Components/Vector2Edit.gd")
 const CharSetting = preload("./Components/CharSetting.gd")
 const KerningPair = preload("./Components/KerningPair.gd")

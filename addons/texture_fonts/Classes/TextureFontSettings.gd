@@ -1,10 +1,15 @@
 @tool
 extends Resource
 
-const CharUtils = preload("../Util/CharUtils.gd")
+const CharUtils = preload("./Utils.gd")
+
+const DEFAULT_CHAR_SETTING = {
+	advance = 0.0,
+	offset = Vector2.ZERO
+}
 
 # {
-# 	for_char: String = {
+# 	for_chars: String = {
 # 		advance: int,
 # 		offset: Vector2
 # 	}
@@ -26,78 +31,65 @@ const CharUtils = preload("../Util/CharUtils.gd")
 @export var descent := 0.0
 @export var ascent := 0.0
 
-
+# TODO: Move these settings to local editor data.
 @export var preview_color := Color("202431")
 @export var preview_chars: String
 
-
-func get_default_setting() -> Dictionary:
-	return {
-		advance = 0.0,
-		offset = Vector2.ZERO
-	}
-
 # ------ Settings Functions ------
 
-func add_setting(for_char: String) -> Dictionary:
-	char_settings[for_char] = {
-		advance = 0.0,
-		offset = Vector2.ZERO
-	}
-	
-	return char_settings[for_char]
+func add_setting(for_chars: String):
+	char_settings[for_chars] = DEFAULT_CHAR_SETTING.duplicate()
 
-func insert_setting(for_char: String, setting: Dictionary):
-	char_settings[for_char] = setting
+func insert_setting(for_chars: String, setting: Dictionary):
+	char_settings[for_chars] = setting
 
-func remove_setting(for_char: String):
-	if char_settings.has(for_char):
-		char_settings.erase(for_char)
+func remove_setting(for_chars: String):
+	char_settings.erase(for_chars)
 
 
-func set_setting(for_char: String, advance: int, offset: Vector2):
-	char_settings[for_char] = {
+func set_setting(for_chars: String, advance: int, offset: Vector2):
+	char_settings[for_chars] = {
 		advance = advance,
 		offset = offset
 	}
 
 func get_setting(char_code: int) -> Dictionary:
 	if char_code == -1:
-		return get_default_setting()
+		return DEFAULT_CHAR_SETTING
 	
 	for char_string in char_settings:
 		var char_codes: Array = CharUtils.chars_to_codes(char_string).front()
 		if char_code in char_codes:
 			return char_settings[char_string]
 	
-	return get_default_setting()
+	return DEFAULT_CHAR_SETTING
 
 
-func set_advance(for_char: String, advance: int):
-	if not char_settings.has(for_char):
-		add_setting(for_char)
+func set_advance(for_chars: String, advance: int):
+	if not char_settings.has(for_chars):
+		add_setting(for_chars)
 	
-	char_settings[for_char].advance = advance
+	char_settings[for_chars].advance = advance
 
-func set_offset(for_char: String, offset: Vector2):
-	if not char_settings.has(for_char):
-		add_setting(for_char)
+func set_offset(for_chars: String, offset: Vector2):
+	if not char_settings.has(for_chars):
+		add_setting(for_chars)
 	
-	char_settings[for_char].offset = offset
+	char_settings[for_chars].offset = offset
 
 
-func get_advance(for_char: String):
-	if char_settings.has(for_char):
-		return char_settings[for_char].advance
+func get_advance(for_chars: String) -> float:
+	if char_settings.has(for_chars):
+		return char_settings[for_chars].advance
 	else:
-		print("Returning default Advance 0.0 for char ", for_char)
+		push_warning("Returning default advance of 0.0 for '", for_chars, "' character(s)")
 		return 0.0
 
-func get_offset(for_char: String):
-	if char_settings.has(for_char):
-		return char_settings[for_char].offset
+func get_offset(for_chars: String) -> Vector2:
+	if char_settings.has(for_chars):
+		return char_settings[for_chars].offset
 	else:
-		print("Returning default Offset Vector2.ZERO for char ", for_char)
+		push_warning("Returning default offset of Vector2(0.0, 0.0) for '", for_chars, "' character(s)")
 		return Vector2.ZERO
 
 
@@ -138,14 +130,14 @@ func get_kerning_pair(idx: int) -> Dictionary:
 	return kerning_pairs[idx]
 
 
-func solve_kerning_pairs() -> Array:
-	var solved_list := []
+func solve_kerning_pairs() -> Array[Dictionary]:
+	var solved_list: Array[Dictionary] = []
 	for pair in kerning_pairs:
 		if pair.from == "" or pair.to == "" or pair.kerning == 0:
 			continue
 		
-		var from_array := CharUtils.chars_to_codes(pair.from).front()
-		var to_array := CharUtils.chars_to_codes(pair.to).front()
+		var from_array: Array = CharUtils.chars_to_codes(pair.from).front() # Weird
+		var to_array: Array = CharUtils.chars_to_codes(pair.to).front() # Weird
 		
 		for a in from_array:
 			for b in to_array:
