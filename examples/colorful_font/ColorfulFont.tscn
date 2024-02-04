@@ -7,6 +7,7 @@
 bg_color = Color(0.647, 0.71, 0.863, 1)
 
 [node name="ColorfulFont" type="MarginContainer"]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -57,7 +58,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="Label" type="Label" parent="Example/VBoxContainer/HBoxContainer/ColorRect2"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_fonts/font = ExtResource("1_w0odp")
