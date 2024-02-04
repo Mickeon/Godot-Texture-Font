@@ -8,8 +8,8 @@ const Vector2Edit = preload("./Components/Vector2Edit.gd")
 const CharSetting = preload("./Components/CharSetting.gd")
 const KerningPair = preload("./Components/KerningPair.gd")
 
-const CHAR_SETTING_SCENE := preload("./Components/CharSetting.tscn")
-const KERNING_PAIR_SCENE := preload("./Components/KerningPair.tscn")
+const CHAR_SETTING_SCENE = preload("./Components/CharSetting.tscn")
+const KERNING_PAIR_SCENE = preload("./Components/KerningPair.tscn")
 
 @export var char_setting_list: VBoxContainer
 @export var kerning_pair_list: VBoxContainer

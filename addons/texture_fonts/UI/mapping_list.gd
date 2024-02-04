@@ -3,11 +3,11 @@ extends VBoxContainer
 
 signal textures_dropped(texture_paths: Array[String])
 
-func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 	var dict := data as Dictionary
 	return Array(dict.get("files", [])).any(is_valid_texture)
 
-func _drop_data(at_position: Vector2, data: Variant) -> void:
+func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	var dict := data as Dictionary
 	var dropped_textures: Array[String] = Array(Array(dict.get("files", [])).filter(is_valid_texture), TYPE_STRING, "", null)
 	if dropped_textures.is_empty():

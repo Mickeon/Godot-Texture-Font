@@ -16,6 +16,10 @@ run/main_scene="res://examples/example_showcase.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
+[debug]
+
+gdscript/warnings/exclude_addons=false
+
 [display]
 
 window/size/width=1048

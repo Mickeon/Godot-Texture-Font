@@ -21,6 +21,6 @@ func set_preview_color(color: Color):
 	
 	text_edit.set("theme_override_colors/caret_color", color.inverted())
 
-func set_preview_scale(scale: float):
-	text_edit.scale = Vector2(scale, scale)
+func set_preview_scale(preview_scale: float):
+	text_edit.scale = Vector2.ONE * preview_scale
 

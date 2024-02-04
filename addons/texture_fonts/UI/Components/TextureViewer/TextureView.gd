@@ -14,8 +14,8 @@ func _ready():
 
 func _gui_input(event):
 	if hovering and event is InputEventMouseMotion:
-		var char := texture_font_mapping.get_char_at_position(event.position)
-		if char.is_empty():
+		var character := texture_font_mapping.get_char_at_position(event.position)
+		if character.is_empty():
 			rect_preview.hide()
 			return
 		
@@ -24,7 +24,7 @@ func _gui_input(event):
 		rect_preview.size = rect.size
 		rect_preview.show()
 		
-		label.text = char
+		label.text = character if character != " " else "Space"
 		label.add_theme_font_size_override("font_size", rect.size.y)
 
 

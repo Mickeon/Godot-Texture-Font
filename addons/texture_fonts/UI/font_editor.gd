@@ -58,7 +58,7 @@ func edit_font(new_font: TextureFont) -> void:
 
 
 func get_font_from_ref() -> TextureFont:
-	var font := font_ref.get_ref()
+	var font: TextureFont = font_ref.get_ref()
 	
 	if not font:
 		emit_signal("closed")
