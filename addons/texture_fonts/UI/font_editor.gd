@@ -27,7 +27,7 @@ const FILE_NODE_SCENE = preload("./Components/File.tscn")
 
 var selected_file_node: FileNode
 var file_nodes: Array[FileNode] = []
-var font_ref: WeakRef
+var font_ref: WeakRef # Contains a TextureFont reference.
 
 # ------ Inherited Methods -----
 
@@ -47,10 +47,10 @@ func edit_font(new_font: TextureFont) -> void:
 	no_selection_overlay.show()
 	
 	for mapping in new_font.texture_mappings:
-		_add_texture_ui(mapping.source_texture)
+		_add_mapping_to_ui(mapping.source_texture)
 	
 	if not file_nodes.is_empty():
-		change_texture(0)
+		change_selected_mapping(0)
 	
 	if is_inside_tree():
 		font_settings.set_font(new_font)
@@ -67,29 +67,13 @@ func get_font_from_ref() -> TextureFont:
 
 
 func update_overlay():
-	if is_instance_valid(selected_file_node):
-		no_selection_overlay.hide()
-	else:
-		no_selection_overlay.show()
+	no_selection_overlay.visible = not is_instance_valid(selected_file_node)
 
 func save_now():
-	_save()
-
-
-func _save():
-	if font_ref and font_ref.get_ref():
+	if font_ref and font_ref.get_ref(): # Weird.
 		var font := get_font_from_ref()
 		
 		font.build_font()
-		
-		if font.resource_path == "":
-			return
-		
-		#var error := ResourceSaver.save(font, font.resource_path)
-		#if error != OK:
-			#push_error("Failed to Save Font with Path: " + font.resource_path + ". Error Code: " + str(error))
-		#else:
-			#print("Saved Font: " + font.resource_path)
 	else:
 		emit_signal("closed")
 
@@ -97,12 +81,12 @@ func _save():
 
 
 func add_texture(texture: Texture2D, idx := -1):
-	_add_texture_ui(texture, idx)
+	_add_mapping_to_ui(texture, idx)
 	var font = get_font_from_ref()
-	font.add_texture(texture)
-	change_texture(file_list.get_child_count() - 1)
+	font.add_mapping_from_texture(texture)
+	change_selected_mapping(file_list.get_child_count() - 1)
 
-func _add_texture_ui(texture: Texture2D, idx := -1):
+func _add_mapping_to_ui(texture: Texture2D, idx := -1):
 	var file_node := FILE_NODE_SCENE.instantiate()
 	
 	file_list.add_child(file_node)
@@ -126,12 +110,12 @@ func delete_texture(node: Node):
 		selected_file_node = null
 	
 	var font := get_font_from_ref()
-	font.remove_texture_at(index)
+	font.remove_mapping(index)
 	
 	update_overlay()
 
 
-func change_texture(index: int):
+func change_selected_mapping(index: int):
 	var file := file_nodes[index]
 	
 	if is_instance_valid(selected_file_node):
@@ -169,7 +153,7 @@ func _on_file_changed(file: FileNode):
 	if idx == -1:
 		return
 	
-	change_texture(idx)
+	change_selected_mapping(idx)
 
 
 func _on_AddTextureButton_pressed():

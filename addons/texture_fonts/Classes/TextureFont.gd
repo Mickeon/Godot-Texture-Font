@@ -3,6 +3,14 @@
 extends FontFile
 class_name TextureFont
 
+## Font that uses textures to represent characters.
+##
+## TextureFont is a font type that uses one or more textures to represent individual characters.[br]
+## It contains one or more mappings [member texture_mappings], 
+## which each defining how the texture applies to individual characters.
+## Further attributes (such as ascent or character settings) can be accessed from [member font_settings].[br]
+## I recommend using the editor to modify a TextureFont resource.
+
 const Mapping = preload("./TextureFontMapping.gd")
 const Settings = preload("./TextureFontSettings.gd")
 
@@ -18,16 +26,16 @@ qrstuvwx
 yz.,!?" """
 }
 
-var texture_mappings: Array[Mapping]:
+var texture_mappings: Array[Mapping]: ## Array of texture mappings assigned to this font.
 	set(new):
 		texture_mappings = new
 		# Images are not saved in ".tres" file to avoid bloat.
 		# Set them again on load just to be sure.
 		_set_real_images()
-var font_settings: Settings = Settings.new()
+var font_settings: Settings = Settings.new() ## Contains further settings that define this font.
 
-
-func add_texture(texture: Texture2D) -> void:
+## Creates a new, default texture mapping and assigns it the given [param texture].
+func add_mapping_from_texture(texture: Texture2D) -> void:
 	var mapping := Mapping.new()
 	mapping.set_texture(texture)
 	mapping.rect_size = DEFAULT_TEXTURE_MAPPING.rect_size
@@ -37,10 +45,11 @@ func add_texture(texture: Texture2D) -> void:
 	
 	texture_mappings.append(mapping)
 
-func remove_texture_at(index: int) -> void: # remove_texture conflicts with existing method.
+## Removes the texture mapping at the given [param index].
+func remove_mapping(index: int) -> void:
 	texture_mappings.remove_at(index)
 
-
+## Forces the font to be recompiled.
 func build_font():
 	#clear_cache()
 	clear_textures(0, FONT_SIZE)

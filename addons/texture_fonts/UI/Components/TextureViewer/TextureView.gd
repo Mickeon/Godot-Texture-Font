@@ -1,10 +1,8 @@
 @tool
 extends TextureRect
 
-
 var hovering := false
 var texture_font_mapping: TextureFont.Mapping
-
 
 @onready var rect_preview: ColorRect = $RectPreview
 @onready var label: Label = $RectPreview/Label

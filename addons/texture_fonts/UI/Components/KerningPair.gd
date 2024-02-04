@@ -5,15 +5,12 @@ extends HBoxContainer
 signal changed
 signal delete_requested
 
-@onready var fromLine: LineEdit = $LineEditFrom
-@onready var toLine: LineEdit = $LineEditTo
-@onready var offsetLine: SpinBox = $SpinBoxOffset
-
 var font_settings: TextureFont.Settings
 
 
-@onready var idx := get_index()
-
+@onready var fromLine: LineEdit = $LineEditFrom
+@onready var toLine: LineEdit = $LineEditTo
+@onready var offsetLine: SpinBox = $SpinBoxOffset
 
 # The passed Dictionary holds info about a kerning pair:
 # {
@@ -30,15 +27,15 @@ func set_kerning_pair(new_kerning: Dictionary):
 
 
 func _on_LineEditFrom_text_changed(new_text: String):
-	font_settings.set_kerning_pair_from(idx, new_text)
+	font_settings.set_kerning_pair_from(get_index(), new_text)
 	emit_signal("changed")
 
 func _on_LineEditTo_text_changed(new_text: String):
-	font_settings.set_kerning_pair_to(idx, new_text)
+	font_settings.set_kerning_pair_to(get_index(), new_text)
 	emit_signal("changed")
 
 func _on_SpinBoxOffset_value_changed(value: float):
-	font_settings.set_kerning_pair_kerning(idx, value)
+	font_settings.set_kerning_pair_kerning(get_index(), value)
 	emit_signal("changed")
 
 func _on_DeleteButton_pressed():

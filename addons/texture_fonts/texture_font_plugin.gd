@@ -9,9 +9,11 @@ var _is_font_saved_on_disk := false
 
 func _enter_tree():
 	EditorInterface.get_resource_filesystem().filesystem_changed.connect(_on_filesystem_changed)
+	#add_custom_type("TextureFont", "FontFile", TextureFont, preload("./Assets/TextureFont.svg"))
 
 func _exit_tree():
 	_close_editor()
+	#remove_custom_type("TextureFont")
 
 func _handles(object: Object) -> bool:
 	if object is TextureFont:

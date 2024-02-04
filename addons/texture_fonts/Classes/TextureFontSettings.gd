@@ -25,15 +25,15 @@ const DEFAULT_CHAR_SETTING = {
 # ]
 @export var kerning_pairs: Array[Dictionary] = []
 
-@export var gap := 2
-@export var alignment := Vector2.ZERO
-@export var monospace := false
-@export var descent := 0.0
-@export var ascent := 0.0
+@export var gap := 2                  ## Horizontal spacing between each character.
+@export var alignment := Vector2.ZERO ## Offset to apply to every character in the font.
+@export var monospace := false        ## If [code]true[/code] all characters have the same width.
+@export var descent := 0.0            ## Vertical offset applied under every character. Can be seen as the font height.
+@export var ascent := 0.0             ## Vertical offset applied above every character, as spacing for every new line.
 
 # TODO: Move these settings to local editor data.
-@export var preview_color := Color("202431")
-@export var preview_chars: String
+@export var preview_color := Color("202431") ## @deprecated
+@export var preview_chars: String  ## @deprecated
 
 # ------ Settings Functions ------
 
