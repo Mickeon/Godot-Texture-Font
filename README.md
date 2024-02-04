@@ -1,8 +1,32 @@
-# TextureFont for Godot 4.2 (WIP)
+> [!WARNING]
+> This port from 3.x is still _"Work in Progress"_.
+> Some things may not work properly, a few things may break over time.
 
-This port of the addon was initially made tailored specifically to my project.
-However, I feel like the public would benefit from it as well.
+# <img width=5% src=icon.png> TextureFont for Godot 4.2+ 
 
-> [!NOTE]  
-> This port uses a very hacky solution which causes errors on every save.
+**TextureFont** is an addon for Godot that allows creating fonts from textures from directly within the editor.<br>
+This addon adds a new **TextureFont** resource that defines how each character is mapped to the texture(s). These resources can be used anywhere a font is expected (Such as **Label**, **Button**, **TextEdit**). They allow for fancier, more colorful or more retro-looking fonts over the standard formats.
+
+<img src=media/preview_mapping.png width=75%>
+<img src=media/preview_settings.png width=75%>
+
+Although not up-to-date, the [original guide](https://github.com/ElectronicBlueberry/Texture-Fonts/wiki) should suffice as a point of reference. However, it shouldn't be too hard to figure out.
+What you do need to know for starters:
+- Enable this addon in the Project Setting's "_Plugins_" tab;
+- Navigate to the File System dock, right click and select _"New Resource..."_;
+- Look up and pick _"TextureFont"_. Once it has been created, select it;
+- Congratulations! The Texture Font editor is now open. O joy of creation.
+
+-----------
+
+Credit to @ElectronicBlueberry for the original addon.<br>
+This port  was initially tailored specifically to my project. However, I feel like the public would benefit from it as well.
+
+Notable differences currently include:
+- Image `scale` and `interpolation` are disabled.
+	- A better, more dynamic solution may be added in the future.
+- There is no way to define a fallback font within the editor.
+
+> [!NOTE]
+> This port uses a very hacky solution which can cause errors on every save of a scene containing **TextureFont** resources.
 > This is not easily avoidable until https://github.com/godotengine/godot/issues/82254 is addressed.

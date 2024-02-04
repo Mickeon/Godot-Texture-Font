@@ -2,5 +2,6 @@
 /.gitignore         export-ignore
 /LICENSE            export-ignore
 /README.md          export-ignore
+/media              export-ignore
 
 * text=auto eol=lf

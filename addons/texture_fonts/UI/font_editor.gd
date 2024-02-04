@@ -1,7 +1,7 @@
 @tool
 extends MarginContainer
 
-signal closed
+signal closed_requested
 
 # ------ Resources ------
 
@@ -61,7 +61,7 @@ func get_font_from_ref() -> TextureFont:
 	var font: TextureFont = font_ref.get_ref()
 	
 	if not font:
-		emit_signal("closed")
+		emit_signal("closed_requested")
 	
 	return font
 
@@ -75,7 +75,7 @@ func save_now():
 		
 		font.build_font()
 	else:
-		emit_signal("closed")
+		emit_signal("closed_requested")
 
 # ------ Actions ------
 
@@ -115,7 +115,7 @@ func delete_texture(node: Node):
 	update_overlay()
 
 
-func change_selected_mapping(index: int):
+func change_selected_mapping(index: int): # All of this is weird.
 	var file := file_nodes[index]
 	
 	if is_instance_valid(selected_file_node):
@@ -146,7 +146,6 @@ func _on_file_removed(file: FileNode):
 	
 	delete_texture(file)
 	update_overlay()
-
 
 func _on_file_changed(file: FileNode):
 	var idx := file_nodes.find(file)

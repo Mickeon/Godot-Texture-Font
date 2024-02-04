@@ -51,7 +51,7 @@ func _input(event):
 			MOUSE_BUTTON_WHEEL_DOWN:
 				zoom_out()
 	elif event is InputEventMouseMotion:
-		if event.button_mask & MOUSE_BUTTON_LEFT:
+		if event.button_mask > 0:
 			texture_container.offset += event.relative
 
 

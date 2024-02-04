@@ -38,7 +38,7 @@ func _open_editor(font: TextureFont):
 	if not is_instance_valid(_font_editor):
 		_font_editor = preload("./UI/FontEditor.tscn").instantiate()
 		add_control_to_bottom_panel(_font_editor, "Texture Font")
-		_font_editor.closed.connect(_close_editor)
+		_font_editor.closed_requested.connect(_close_editor)
 	
 	_font_editor.edit_font(font)
 	make_bottom_panel_item_visible(_font_editor)
