@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2eh6tn3e81l5"]
+
+[ext_resource type="FontFile" uid="uid://xsd7ihclv6lp" path="res://examples/submitted_1/TestFont.tres" id="1_q6fht"]
+
+[node name="Submitted1" type="Label"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_q6fht")
+text = "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+autowrap_mode = 2

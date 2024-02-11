@@ -56,6 +56,8 @@ func build_font():
 	clear_glyphs(0, FONT_SIZE)
 	clear_kerning_map(0, FONT_SIZE.x)
 	clear_size_cache(0)
+	fixed_size = FONT_SIZE.x
+	fixed_size_scale_mode = TextServer.FIXED_SIZE_SCALE_ENABLED
 	
 	var mono := font_settings.monospace
 	var alignment := font_settings.alignment
@@ -118,11 +120,16 @@ func build_font():
 	emit_changed()
 	notify_property_list_changed()
 
+var _in_init := true
 var _save_frame: int
 func _get_property_list() -> Array[Dictionary]:
 	if Engine.is_editor_hint():
 		# What follows is a dumb workaround to prevent bundling HUGE images in the ".tres" file.
 		# It would be nice to not generate errors. But alas.
+		if _in_init:
+			# I don't want this to happen at the start, as it can cause EVEN MORE errors.
+			_in_init = false
+			return []
 		if _save_frame == Engine.get_process_frames():
 			return [] # Not more than once per frame.
 		_save_frame = Engine.get_process_frames()
