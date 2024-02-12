@@ -23,6 +23,7 @@ var _zoom := 100.0
 
 func set_mapping(new_mapping: TextureFont.Mapping):
 	texture_view.texture_font_mapping = new_mapping
+	texture = ImageTexture.create_from_image(new_mapping.scaled_image)
 
 
 func zoom_in():

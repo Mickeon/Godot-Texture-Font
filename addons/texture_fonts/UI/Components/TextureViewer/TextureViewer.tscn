@@ -108,6 +108,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0.52549, 0.670588)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("2")
 text = "a"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="value_changed" from="Heading/SpinBox" to="." method="_on_SpinBox_value_changed"]
 [connection signal="mouse_entered" from="Control/TextureContainer" to="." method="_on_TextureContainer_mouse_entered"]

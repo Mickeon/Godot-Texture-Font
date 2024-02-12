@@ -25,8 +25,10 @@ const FILE_NODE_SCENE = preload("./Components/File.tscn")
 
 # ------ Variables ------
 
-var selected_file_node: FileNode
-var file_nodes: Array[FileNode] = []
+var selected_file_node: FileNode:
+	set(new):
+		selected_file_node = new
+		no_selection_overlay.visible = not is_instance_valid(selected_file_node)
 var font_ref: WeakRef # Contains a TextureFont reference.
 
 # ------ Inherited Methods -----
@@ -39,17 +41,15 @@ func edit_font(new_font: TextureFont) -> void:
 		save_now()
 	
 	font_ref = weakref(new_font)
-	for node in file_nodes:
+	for node in file_list.get_children():
 		node.queue_free()
-	
-	file_nodes.clear()
 	
 	no_selection_overlay.show()
 	
 	for mapping in new_font.texture_mappings:
 		_add_mapping_to_ui(mapping.source_texture)
 	
-	if not file_nodes.is_empty():
+	if file_list.get_children().size() > 0:
 		change_selected_mapping(0)
 	
 	if is_inside_tree():
@@ -64,10 +64,6 @@ func get_font_from_ref() -> TextureFont:
 		emit_signal("closed_requested")
 	
 	return font
-
-
-func update_overlay():
-	no_selection_overlay.visible = not is_instance_valid(selected_file_node)
 
 func save_now():
 	if font_ref and font_ref.get_ref(): # Weird.
@@ -90,65 +86,52 @@ func _add_mapping_to_ui(texture: Texture2D, idx := -1):
 	var file_node := FILE_NODE_SCENE.instantiate()
 	
 	file_list.add_child(file_node)
+	file_list.move_child(file_node, idx)
 	file_node.texture = texture
-	if idx == -1:
-		file_nodes.append(file_node)
-	else:
-		file_list.move_child(file_node, idx)
-		file_nodes.insert(idx, file_node)
 	
 	file_node.file_removed.connect(_on_file_removed)
 	file_node.file_changed.connect(_on_file_changed)
 
 
-func delete_texture(node: Node):
-	var index := file_nodes.find(node)
-	node.queue_free()
-	file_nodes.remove_at(index)
+func delete_texture(file_node: FileNode):
+	file_node.queue_free()
 	
-	if node == selected_file_node:
+	if file_node == selected_file_node:
 		selected_file_node = null
 	
 	var font := get_font_from_ref()
-	font.remove_mapping(index)
-	
-	update_overlay()
+	font.remove_mapping(file_node.get_index())
 
 
-func change_selected_mapping(index: int): # All of this is weird.
-	var file := file_nodes[index]
-	
-	if is_instance_valid(selected_file_node):
+func change_selected_mapping(index: int):
+	var file_node := file_list.get_child(index)
+	if not file_node:
+		push_error("TextureFont Editor: Mapping file node at index %d does not exist." % index)
+		return
+		
+	file_node.selected = true
+	if selected_file_node:
 		selected_file_node.selected = false
+	selected_file_node = file_node
 	
 	var font := get_font_from_ref()
-	
-	if is_instance_valid(file):
-		file.selected = true
-		selected_file_node = file
-		var texture := ImageTexture.create_from_image(font.texture_mappings[index].scaled_image)
-		texture_viewer.texture = texture
-	
 	mapping_settings.set_mapping(font.texture_mappings[index])
 	texture_viewer.set_mapping(font.texture_mappings[index])
-	
-	update_overlay()
 
 
 # ------ Signals ------
 
-func _on_file_removed(file: FileNode):
+func _on_file_removed(file: FileNode): # This looks odd.
 	if file == selected_file_node:
 		selected_file_node = null
-		if not file_nodes.is_empty():
-			selected_file_node = file_nodes.front()
+		if file_list.get_children().size() > 0:
+			selected_file_node = file_list.get_child(0)
 			selected_file_node.selected = true
 	
 	delete_texture(file)
-	update_overlay()
 
 func _on_file_changed(file: FileNode):
-	var idx := file_nodes.find(file)
+	var idx := file.get_index()
 	if idx == -1:
 		return
 	

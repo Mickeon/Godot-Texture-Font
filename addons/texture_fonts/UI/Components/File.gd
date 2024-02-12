@@ -1,8 +1,8 @@
 @tool
 extends MarginContainer
 
-signal file_removed(itself)
-signal file_changed(itself)
+signal file_removed(itself) # Should rename to "remove_requested"?
+signal file_changed(itself) # Should rename to "file_selected".
 
 @onready var name_label := $MarginContainer/HBoxContainer/ClipLabel/Label
 @onready var preview := $MarginContainer/HBoxContainer/ImageContainer/TexturePreview

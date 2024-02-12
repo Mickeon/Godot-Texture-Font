@@ -22,8 +22,10 @@ func _gui_input(event):
 		rect_preview.size = rect.size
 		rect_preview.show()
 		
+		label.add_theme_font_size_override("font_size", rect.size.y * 4)
 		label.text = character if character != " " else "Space"
-		label.add_theme_font_size_override("font_size", rect.size.y)
+		label.pivot_offset = label.size / 2.0
+		label.scale = Vector2.ONE / 4
 
 
 func _on_TextureView_mouse_entered():

@@ -4,31 +4,31 @@ extends VBoxContainer
 signal value_changed(value: Vector2)
 
 @export var min_value := Vector2(-100.0, -100.0):
-	set(new_value):
-		min_value = new_value
+	set(new):
+		min_value = new
 		if is_instance_valid(x_node) and is_instance_valid(y_node):
-			x_node.min_value = new_value.x
-			y_node.min_value = new_value.y
+			x_node.min_value = new.x
+			y_node.min_value = new.y
 	get:
 		if is_instance_valid(x_node) and is_instance_valid(y_node):
 			return Vector2(x_node.min_value, y_node.min_value)
 		return Vector2.ZERO
 @export var max_value := Vector2(100.0, 100.0):
-	set(new_value):
-		max_value = new_value
+	set(new):
+		max_value = new
 		if is_instance_valid(x_node) and is_instance_valid(y_node):
-			x_node.max_value = new_value.x
-			y_node.max_value = new_value.y
+			x_node.max_value = new.x
+			y_node.max_value = new.y
 	get:
 		if is_instance_valid(x_node) and is_instance_valid(y_node):
 			return Vector2(x_node.max_value, y_node.max_value)
 		return Vector2.ZERO
 @export var value: Vector2:
-	set(new_value):
-		value = new_value
+	set(new):
+		value = new
 		if is_instance_valid(x_node) and is_instance_valid(y_node):
-			x_node.value = new_value.x
-			y_node.value = new_value.y
+			x_node.value = new.x
+			y_node.value = new.y
 	get:
 		if is_instance_valid(x_node) and is_instance_valid(y_node):
 			return Vector2(x_node.value, y_node.value)
