@@ -2,13 +2,26 @@
 
 [ext_resource type="FontFile" uid="uid://xsd7ihclv6lp" path="res://examples/submitted_1/TestFont.tres" id="1_q6fht"]
 
-[node name="Submitted1" type="Label"]
+[node name="Submitted1" type="RichTextLabel"]
 texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("1_q6fht")
-text = "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+focus_mode = 2
+theme_override_colors/font_outline_color = Color(0.952941, 0, 0.545098, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("1_q6fht")
+theme_override_fonts/bold_font = ExtResource("1_q6fht")
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "Reef provost pillage port run a shot across the bow rum gaff grog Brethren of the Coast yard. Skysail overhaul yawl deadlights nipperkin fore jolly boat Sink me galleon lad. Crimp six pounders ahoy grapple scallywag Brethren of the Coast Blimey coxswain jack pirate.
+
+
+
+[b]Apple pie muffin[/b] topping sugar [i]plum lemon[/i] drops marzipan.
+[u]Macaroon[/u] [code]chocolate bar[/code] cupcake marzipan marshmallow [color=cyan][url=\"idk\"]danish cake pie[/url][/color].
+Carrot cake [hint=\"It tastes good\"]chocolate cake[/hint] gingerbread apple pie."
 autowrap_mode = 2
+selection_enabled = true

@@ -26,19 +26,20 @@ func set_mapping(new_mapping: TextureFont.Mapping):
 
 
 func zoom_in():
-	zoom *= 1.1
+	zoom *= 1.5
 
 func zoom_out():
-	zoom *= 0.9
+	zoom *= 0.5
 
-
-func set_texture(texture: Texture2D):
-	if not is_node_ready(): await ready
-	
-	texture_container.set_texture(texture)
-	texture_view.texture = texture
-	texture_view.size = texture.get_size()
-	texture_view.pivot_offset = texture_view.size / 2.0
+var texture: Texture2D:
+	set(new):
+		texture = new
+		if not is_node_ready(): await ready
+		
+		texture_container.texture = texture
+		texture_view.texture = texture
+		texture_view.size = texture.get_size()
+		texture_view.pivot_offset = texture_view.size / 2.0
 
 func _input(event):
 	if not hovering:

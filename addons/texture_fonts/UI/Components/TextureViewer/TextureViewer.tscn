@@ -1,63 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjca34ig077sx"]
+[gd_scene load_steps=6 format=3 uid="uid://cjca34ig077sx"]
 
 [ext_resource type="FontFile" uid="uid://vxqsbmlofgoq" path="res://addons/texture_fonts/Assets/Fonts/RobotoMono-Medium.ttf" id="2"]
 [ext_resource type="Texture2D" uid="uid://yn34nyba10uy" path="res://addons/texture_fonts/Assets/TransparentBG.png" id="3"]
 [ext_resource type="Script" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureViewer.gd" id="4"]
 [ext_resource type="Script" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureView.gd" id="5"]
 [ext_resource type="Script" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureContainer.gd" id="6"]
-
-[sub_resource type="FontFile" id="1"]
-fallbacks = Array[Font]([ExtResource("2")])
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/13/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/12/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/32/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/36/0 = Vector2(0, 0)
-cache/0/13/0/ascent = 0.0
-cache/0/13/0/descent = 0.0
-cache/0/13/0/underline_position = 0.0
-cache/0/13/0/underline_thickness = 0.0
-cache/0/13/0/scale = 1.0
-cache/0/13/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/13/0/kerning_overrides/13/0 = Vector2(0, 0)
-cache/0/13/0/kerning_overrides/12/0 = Vector2(0, 0)
-cache/0/13/0/kerning_overrides/32/0 = Vector2(0, 0)
-cache/0/13/0/kerning_overrides/36/0 = Vector2(0, 0)
-cache/0/12/0/ascent = 0.0
-cache/0/12/0/descent = 0.0
-cache/0/12/0/underline_position = 0.0
-cache/0/12/0/underline_thickness = 0.0
-cache/0/12/0/scale = 1.0
-cache/0/12/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/12/0/kerning_overrides/13/0 = Vector2(0, 0)
-cache/0/12/0/kerning_overrides/12/0 = Vector2(0, 0)
-cache/0/12/0/kerning_overrides/32/0 = Vector2(0, 0)
-cache/0/12/0/kerning_overrides/36/0 = Vector2(0, 0)
-cache/0/32/0/ascent = 0.0
-cache/0/32/0/descent = 0.0
-cache/0/32/0/underline_position = 0.0
-cache/0/32/0/underline_thickness = 0.0
-cache/0/32/0/scale = 1.0
-cache/0/32/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/32/0/kerning_overrides/13/0 = Vector2(0, 0)
-cache/0/32/0/kerning_overrides/12/0 = Vector2(0, 0)
-cache/0/32/0/kerning_overrides/32/0 = Vector2(0, 0)
-cache/0/32/0/kerning_overrides/36/0 = Vector2(0, 0)
-cache/0/36/0/ascent = 0.0
-cache/0/36/0/descent = 0.0
-cache/0/36/0/underline_position = 0.0
-cache/0/36/0/underline_thickness = 0.0
-cache/0/36/0/scale = 1.0
-cache/0/36/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/36/0/kerning_overrides/13/0 = Vector2(0, 0)
-cache/0/36/0/kerning_overrides/12/0 = Vector2(0, 0)
-cache/0/36/0/kerning_overrides/32/0 = Vector2(0, 0)
-cache/0/36/0/kerning_overrides/36/0 = Vector2(0, 0)
 
 [node name="TextureViewer" type="VBoxContainer"]
 anchors_preset = 15
@@ -67,6 +14,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 tooltip_text = "- Press any mouse button to pan.
 - Use the mouse wheel to zoom in and out."
+mouse_default_cursor_shape = 16
 script = ExtResource("4")
 
 [node name="Heading" type="HBoxContainer" parent="."]
@@ -93,6 +41,7 @@ step = 10.0
 value = 100.0
 exp_edit = true
 suffix = "%"
+custom_arrow_step = 50.0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 2
@@ -157,7 +106,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0.133333, 0.129412, 0.156863, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0.52549, 0.670588)
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = SubResource("1")
+theme_override_fonts/font = ExtResource("2")
 text = "a"
 
 [connection signal="value_changed" from="Heading/SpinBox" to="." method="_on_SpinBox_value_changed"]

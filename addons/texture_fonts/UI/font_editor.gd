@@ -90,7 +90,7 @@ func _add_mapping_to_ui(texture: Texture2D, idx := -1):
 	var file_node := FILE_NODE_SCENE.instantiate()
 	
 	file_list.add_child(file_node)
-	file_node.set_texture(texture)
+	file_node.texture = texture
 	if idx == -1:
 		file_nodes.append(file_node)
 	else:
@@ -127,7 +127,7 @@ func change_selected_mapping(index: int): # All of this is weird.
 		file.selected = true
 		selected_file_node = file
 		var texture := ImageTexture.create_from_image(font.texture_mappings[index].scaled_image)
-		texture_viewer.set_texture(texture)
+		texture_viewer.texture = texture
 	
 	mapping_settings.set_mapping(font.texture_mappings[index])
 	texture_viewer.set_mapping(font.texture_mappings[index])

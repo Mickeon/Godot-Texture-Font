@@ -7,15 +7,22 @@
 
 [sub_resource type="Resource" id="Resource_7phxv"]
 script = ExtResource("1_xt3sm")
-char_settings = {}
+char_settings = {
+" ": {
+"advance": 8,
+"offset": Vector2(0, 0)
+}
+}
 kerning_pairs = Array[Dictionary]([])
 gap = 2
-alignment = Vector2(0, 0)
+alignment = Vector2(0, -8)
 monospace = false
 descent = 9.0
 ascent = 0.0
 preview_color = Color(0.12549, 0.141176, 0.192157, 1)
-preview_chars = "ABCD"
+preview_chars = "ABCD
+EFGH
+1234"
 
 [sub_resource type="Resource" id="Resource_0aigs"]
 script = ExtResource("3_j5o5r")
@@ -27,7 +34,7 @@ chars = "abcdefgh
 ijklmnop
 qrstuvwx
 yz012345
-6789"
+6789 "
 
 [sub_resource type="Resource" id="Resource_7tlmb"]
 script = ExtResource("3_j5o5r")
@@ -228,6 +235,11 @@ cache/0/12/0/glyphs/57/offset = Vector2(0, 0)
 cache/0/12/0/glyphs/57/size = Vector2(8, 9)
 cache/0/12/0/glyphs/57/uv_rect = Rect2(30, 44, 8, 9)
 cache/0/12/0/glyphs/57/texture_idx = 0
+cache/0/12/0/glyphs/32/advance = Vector2(10, 0)
+cache/0/12/0/glyphs/32/offset = Vector2(0, 0)
+cache/0/12/0/glyphs/32/size = Vector2(0, 9)
+cache/0/12/0/glyphs/32/uv_rect = Rect2(48, 44, 0, 9)
+cache/0/12/0/glyphs/32/texture_idx = 0
 cache/0/12/0/glyphs/65/advance = Vector2(10, 0)
 cache/0/12/0/glyphs/65/offset = Vector2(0, 0)
 cache/0/12/0/glyphs/65/size = Vector2(8, 9)
@@ -358,11 +370,11 @@ cache/0/12/0/glyphs/90/offset = Vector2(0, 0)
 cache/0/12/0/glyphs/90/size = Vector2(8, 9)
 cache/0/12/0/glyphs/90/uv_rect = Rect2(10, 33, 8, 9)
 cache/0/12/0/glyphs/90/texture_idx = 1
-cache/0/12/0/glyphs/32/advance = Vector2(2, 0)
-cache/0/12/0/glyphs/32/offset = Vector2(0, 0)
-cache/0/12/0/glyphs/32/size = Vector2(0, 0)
-cache/0/12/0/glyphs/32/uv_rect = Rect2(0, 0, 0, 0)
-cache/0/12/0/glyphs/32/texture_idx = 0
+cache/0/12/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/12/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/12/0/glyphs/0/size = Vector2(0, 0)
+cache/0/12/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/12/0/glyphs/0/texture_idx = -1
 cache/0/12/0/kerning_overrides/12/0 = Vector2(0, 0)
 script = ExtResource("2_8mq4p")
 texture_mappings = Array[ExtResource("3_j5o5r")]([SubResource("Resource_0aigs"), SubResource("Resource_7tlmb")])

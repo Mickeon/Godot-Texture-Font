@@ -5,10 +5,10 @@ const TextureView = preload("./TextureView.gd")
 
 @onready var texture_view: TextureView = $TextureView
 
-var texture: Texture2D
-func set_texture(new: Texture2D):
-	texture = new
-	offset = Vector2.ZERO
+var texture: Texture2D:
+	set(new):
+		texture = new
+		offset = Vector2.ZERO
 
 var offset := Vector2.ZERO:
 	set(new_offset):

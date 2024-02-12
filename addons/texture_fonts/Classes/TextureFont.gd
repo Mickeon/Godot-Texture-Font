@@ -56,6 +56,7 @@ func build_font():
 	clear_glyphs(0, FONT_SIZE)
 	clear_kerning_map(0, FONT_SIZE.x)
 	clear_size_cache(0)
+	
 	fixed_size = FONT_SIZE.x
 	fixed_size_scale_mode = TextServer.FIXED_SIZE_SCALE_ENABLED
 	
@@ -145,6 +146,8 @@ func _get_property_list() -> Array[Dictionary]:
 func _validate_property(property: Dictionary) -> void:
 	if property.name == &"texture_mappings" or property.name == &"font_settings":
 		property.usage = PROPERTY_USAGE_NO_EDITOR
+	elif property.name == &"fallbacks":
+		property.usage = PROPERTY_USAGE_DEFAULT
 
 func _set_real_images():
 	for i in texture_mappings.size():

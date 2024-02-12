@@ -111,8 +111,8 @@ layout_mode = 2
 
 [node name="Alignment" parent="HSplitContainer/Settings/MarginContainer/Vbox" instance=ExtResource("2_bji2q")]
 layout_mode = 2
-min_value = Vector2(0, 0)
-max_value = Vector2(0, 0)
+min_value = Vector2(-256, -256)
+max_value = Vector2(256, 256)
 label = "Alignment:"
 hide_separator = true
 

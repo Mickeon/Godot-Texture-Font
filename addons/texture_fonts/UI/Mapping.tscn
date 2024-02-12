@@ -1,34 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ud2mcabp2mg0"]
+[gd_scene load_steps=5 format=3 uid="uid://ud2mcabp2mg0"]
 
 [ext_resource type="Script" path="res://addons/texture_fonts/UI/mapping.gd" id="1_uoe0t"]
 [ext_resource type="PackedScene" uid="uid://cf8py46vfqbf4" path="res://addons/texture_fonts/UI/Components/Vector2Edit.tscn" id="2_mp5wm"]
 [ext_resource type="FontFile" uid="uid://vxqsbmlofgoq" path="res://addons/texture_fonts/Assets/Fonts/RobotoMono-Medium.ttf" id="3_hh27p"]
 [ext_resource type="PackedScene" uid="uid://cjca34ig077sx" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureViewer.tscn" id="4_ubswt"]
-
-[sub_resource type="FontFile" id="1"]
-fallbacks = Array[Font]([ExtResource("3_hh27p")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/13/0 = Vector2(0, 0)
-cache/0/13/0/ascent = 0.0
-cache/0/13/0/descent = 0.0
-cache/0/13/0/underline_position = 0.0
-cache/0/13/0/underline_thickness = 0.0
-cache/0/13/0/scale = 1.0
-cache/0/13/0/glyphs/0/advance = Vector2(0, 0)
-cache/0/13/0/glyphs/0/offset = Vector2(0, 0)
-cache/0/13/0/glyphs/0/size = Vector2(0, 0)
-cache/0/13/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
-cache/0/13/0/glyphs/0/texture_idx = -1
-cache/0/13/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/13/0/kerning_overrides/13/0 = Vector2(0, 0)
 
 [node name="MappingSettings" type="MarginContainer" node_paths=PackedStringArray("size_edit", "gap", "offset", "chars", "texture_viewer")]
 size_flags_horizontal = 3
@@ -53,6 +28,7 @@ theme_override_constants/separation = 12
 [node name="Size" parent="VBoxContainer/RectSettings" instance=ExtResource("2_mp5wm")]
 layout_mode = 2
 tooltip_text = "The width and height of every character in the texture."
+mouse_default_cursor_shape = 16
 min_value = Vector2(1, 1)
 value = Vector2(1, 1)
 label = "Rectangle Size"
@@ -60,12 +36,14 @@ label = "Rectangle Size"
 [node name="Gap" parent="VBoxContainer/RectSettings" instance=ExtResource("2_mp5wm")]
 layout_mode = 2
 tooltip_text = "Additional gap between every character in the texture."
+mouse_default_cursor_shape = 16
 min_value = Vector2(0, 0)
 label = "Rectangle Gap"
 
 [node name="Offset" parent="VBoxContainer/RectSettings" instance=ExtResource("2_mp5wm")]
 layout_mode = 2
 tooltip_text = "Offset from the top-left in pixels, applied before the first characters in the texture."
+mouse_default_cursor_shape = 16
 min_value = Vector2(0, 0)
 max_value = Vector2(0, 0)
 label = "Start Offset"
@@ -80,6 +58,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 tooltip_text = "The characters represented in the texture, arranged in a grid.
 Hover your mouse over the View Texture section to see what character corresponds to what."
+mouse_default_cursor_shape = 16
 
 [node name="HeadingBox" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/HBoxContainer"]
 layout_mode = 2
@@ -97,7 +76,10 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 7
-theme_override_fonts/font = SubResource("1")
+theme_override_fonts/font = ExtResource("3_hh27p")
+placeholder_text = "abcdegh
+ijklmnop
+..."
 draw_tabs = true
 draw_spaces = true
 
