@@ -14,7 +14,7 @@ class_name TextureFont
 const Mapping = preload("./TextureFontMapping.gd")
 const Settings = preload("./TextureFontSettings.gd")
 
-const FONT_SIZE := Vector2i(12, 0)
+const FONT_SIZE := Vector2i(16, 0)
 const DEFAULT_TEXTURE_MAPPING := {
 	rect_size = Vector2.ONE * 16,
 	rect_gap = Vector2.ZERO,
