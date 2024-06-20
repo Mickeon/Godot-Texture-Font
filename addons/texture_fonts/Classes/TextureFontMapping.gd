@@ -32,7 +32,7 @@ func get_image() -> Image:
 @export var texture_offset: Vector2
 
 # Unused.
-var scale = 1
+var scale := 1
 #@export var scale := 1:
 	#set(new_scale):
 		#scale = new_scale

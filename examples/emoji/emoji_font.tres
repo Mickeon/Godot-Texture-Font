@@ -1,4 +1,4 @@
-[gd_resource type="FontFile" script_class="TextureFont" load_steps=20 format=3 uid="uid://4fllteup1teo"]
+[gd_resource type="FontFile" script_class="TextureFont" load_steps=27 format=3 uid="uid://4fllteup1teo"]
 
 [ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFont.gd" id="1"]
 [ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontSettings.gd" id="2"]
@@ -11,6 +11,69 @@
 [ext_resource type="Texture2D" uid="uid://bhee34mjxkxxu" path="res://examples/emoji/emojis/1f525.svg" id="9_i8rpc"]
 [ext_resource type="Texture2D" uid="uid://cktc5vpbanmn0" path="res://examples/emoji/emojis/1f622.svg" id="10_xx6ii"]
 [ext_resource type="Texture2D" uid="uid://bo52mkhfmbnpx" path="res://examples/emoji/emojis/2764.svg" id="11_52kfi"]
+
+[sub_resource type="Image" id="Image_snjdj"]
+data = {
+"data": PackedByteArray(151, 151, 151),
+"format": "RGB8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
+
+[sub_resource type="Image" id="Image_fvuvu"]
+data = {
+"data": PackedByteArray(151, 151, 151),
+"format": "RGB8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
+
+[sub_resource type="Image" id="Image_my2wq"]
+data = {
+"data": PackedByteArray(151, 151, 151),
+"format": "RGB8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
+
+[sub_resource type="Image" id="Image_08ay2"]
+data = {
+"data": PackedByteArray(151, 151, 151),
+"format": "RGB8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
+
+[sub_resource type="Image" id="Image_jgtw5"]
+data = {
+"data": PackedByteArray(151, 151, 151),
+"format": "RGB8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
+
+[sub_resource type="Image" id="Image_22xv7"]
+data = {
+"data": PackedByteArray(151, 151, 151),
+"format": "RGB8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
+
+[sub_resource type="Image" id="Image_w3w8c"]
+data = {
+"data": PackedByteArray(151, 151, 151),
+"format": "RGB8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
 
 [sub_resource type="Resource" id="1"]
 script = ExtResource("2")
@@ -83,11 +146,26 @@ chars = "♥"
 [resource]
 fallbacks = Array[Font]([ExtResource("5")])
 fixed_size = 16
+fixed_size_scale_mode = 2
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 36.0
 cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
+cache/0/16/0/textures/0/offsets = PackedInt32Array()
+cache/0/16/0/textures/0/image = SubResource("Image_snjdj")
+cache/0/16/0/textures/1/offsets = PackedInt32Array()
+cache/0/16/0/textures/1/image = SubResource("Image_fvuvu")
+cache/0/16/0/textures/2/offsets = PackedInt32Array()
+cache/0/16/0/textures/2/image = SubResource("Image_my2wq")
+cache/0/16/0/textures/3/offsets = PackedInt32Array()
+cache/0/16/0/textures/3/image = SubResource("Image_08ay2")
+cache/0/16/0/textures/4/offsets = PackedInt32Array()
+cache/0/16/0/textures/4/image = SubResource("Image_jgtw5")
+cache/0/16/0/textures/5/offsets = PackedInt32Array()
+cache/0/16/0/textures/5/image = SubResource("Image_22xv7")
+cache/0/16/0/textures/6/offsets = PackedInt32Array()
+cache/0/16/0/textures/6/image = SubResource("Image_w3w8c")
 cache/0/16/0/glyphs/128525/advance = Vector2(38, 0)
 cache/0/16/0/glyphs/128525/offset = Vector2(0, 0)
 cache/0/16/0/glyphs/128525/size = Vector2(36, 36)
@@ -128,6 +206,11 @@ cache/0/16/0/glyphs/32/offset = Vector2(0, 0)
 cache/0/16/0/glyphs/32/size = Vector2(0, 0)
 cache/0/16/0/glyphs/32/uv_rect = Rect2(0, 0, 0, 0)
 cache/0/16/0/glyphs/32/texture_idx = 0
+cache/0/16/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/16/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/0/size = Vector2(0, 0)
+cache/0/16/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/16/0/glyphs/0/texture_idx = -1
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 script = ExtResource("1")
 texture_mappings = Array[ExtResource("4_k2udr")]([SubResource("Resource_iel3i"), SubResource("Resource_8y0i0"), SubResource("Resource_qyswq"), SubResource("Resource_d87oc"), SubResource("Resource_hsd4g"), SubResource("Resource_6rn77"), SubResource("Resource_grqp4")])

@@ -121,25 +121,28 @@ func build_font():
 	emit_changed()
 	notify_property_list_changed()
 
-var _in_init := true
+#var _in_init := true
 var _save_frame: int
 func _get_property_list() -> Array[Dictionary]:
-	if Engine.is_editor_hint():
-		# What follows is a dumb workaround to prevent bundling HUGE images in the ".tres" file.
-		# It would be nice to not generate errors. But alas.
-		if _in_init:
-			# I don't want this to happen at the start, as it can cause EVEN MORE errors.
-			_in_init = false
-			return []
-		if _save_frame == Engine.get_process_frames():
-			return [] # Not more than once per frame.
-		_save_frame = Engine.get_process_frames()
-		
-		clear_textures(0, FONT_SIZE)
-		push_warning("TextureFont: Ignore the errors for '%s' below, if any." % resource_path.get_file())
-		
-		#build_font.call_deferred()
-		_set_real_images.call_deferred()
+	if not Engine.is_editor_hint():
+		return []
+	
+	# What follows is a dumb workaround to prevent bundling HUGE images in the ".tres" file.
+	# It would be nice to not generate errors. But alas.
+	#if _in_init:
+		# I don't want this to happen at the start, as it can cause EVEN MORE errors.
+		#_in_init = false
+		#return []
+	if _save_frame == Engine.get_process_frames():
+		return [] # Not more than once per frame.
+	_save_frame = Engine.get_process_frames()
+	
+	#clear_textures(0, FONT_SIZE)
+	_set_placeholder_images()
+	#push_warning("TextureFont: Ignore the errors for '%s' below, if any." % resource_path.get_file())
+	
+	#build_font.call_deferred()
+	Engine.get_main_loop().create_timer(0.1).timeout.connect(_set_real_images)
 	
 	return []
 
@@ -156,3 +159,6 @@ func _set_real_images():
 	
 	emit_changed()
 
+func _set_placeholder_images():
+	for i in texture_mappings.size():
+		set_texture_image(0, FONT_SIZE, i, preload("res://addons/texture_fonts/Assets/placeholder.png"))

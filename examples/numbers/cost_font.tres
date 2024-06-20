@@ -1,9 +1,18 @@
-[gd_resource type="FontFile" script_class="TextureFont" load_steps=7 format=3 uid="uid://cyv6hhulbbgc6"]
+[gd_resource type="FontFile" script_class="TextureFont" load_steps=8 format=3 uid="uid://cyv6hhulbbgc6"]
 
 [ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontSettings.gd" id="1"]
 [ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFont.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://c3obsvnf8xl3b" path="res://examples/numbers/CostFontSheet.png" id="4_clkjm"]
 [ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontMapping.gd" id="4_kefci"]
+
+[sub_resource type="Image" id="Image_3r4qq"]
+data = {
+"data": PackedByteArray(151, 151, 151),
+"format": "RGB8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
 
 [sub_resource type="Resource" id="1"]
 script = ExtResource("1")
@@ -36,6 +45,8 @@ cache/0/12/0/descent = 40.0
 cache/0/12/0/underline_position = 0.0
 cache/0/12/0/underline_thickness = 0.0
 cache/0/12/0/scale = 1.0
+cache/0/12/0/textures/0/offsets = PackedInt32Array()
+cache/0/12/0/textures/0/image = SubResource("Image_3r4qq")
 cache/0/12/0/glyphs/49/advance = Vector2(16, 0)
 cache/0/12/0/glyphs/49/offset = Vector2(0, 0)
 cache/0/12/0/glyphs/49/size = Vector2(8, 8)
