@@ -154,3 +154,7 @@ func _on_Files_textures_dropped(texture_paths: Array[String]) -> void:
 		var texture = load(path)
 		if texture is Texture2D:
 			add_texture(texture)
+
+func _on_Settings_changed():
+	save_now()
+

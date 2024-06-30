@@ -5,7 +5,7 @@
 # <img width=5% src=icon.png> TextureFont for Godot 4.2+ 
 
 **TextureFont** is an addon for Godot that allows creating fonts from textures from directly within the editor.<br>
-This addon adds a new **TextureFont** resource that defines how each character is mapped to the texture(s). These resources can be used anywhere a font is expected (Such as **Label**, **Button**, **TextEdit**). They allow for fancier, more colorful or more retro-looking fonts over the standard formats.
+This addon adds a new **TextureFont** resource that defines how each character is mapped to the texture(s). These resources can be used anywhere a font is expected (Such as **Label**, **Button**, **TextEdit**, etc.). They allow for fancier, more colorful, or more retro-looking fonts over the standard formats.
 
 <img src=media/preview_mapping.png width=75%>
 <img src=media/preview_settings.png width=75%>
@@ -20,13 +20,12 @@ What you do need to know for starters:
 -----------
 
 Credit to @ElectronicBlueberry for the original addon.<br>
-This port  was initially tailored specifically to my project. However, I feel like the public would benefit from it as well.
+This port was initially tailored specifically to my project. However, I feel like the public would benefit from it as well.
 
 Notable differences currently include:
 - Image `scale` and `interpolation` are disabled.
 	- A better, more dynamic solution may be added in the future.
-- There is no way to define a fallback font within the editor.
 
 > [!NOTE]
-> This port uses a very hacky solution which can cause errors on every save of a scene containing **TextureFont** resources.
-> This is not easily avoidable until https://github.com/godotengine/godot/issues/82254 is addressed.
+> This port uses a very hacky solution to use a placeholder texture temporarily whenever a **TextureFont** is saved in the editor, to avoid massive data bloat. This causes Git to report false changes and may also cause a few errors on save.
+> This is not avoidable in 4.2, but should be addressed from 4.3 forward (see https://github.com/godotengine/godot/issues/82254).

@@ -59,6 +59,7 @@ func build_font():
 	
 	fixed_size = FONT_SIZE.x
 	fixed_size_scale_mode = TextServer.FIXED_SIZE_SCALE_ENABLED
+	oversampling = 1.0
 	
 	var mono := font_settings.monospace
 	var alignment := font_settings.alignment

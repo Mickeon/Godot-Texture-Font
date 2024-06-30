@@ -114,3 +114,4 @@ script = ExtResource("5_tnrwx")
 [connection signal="textures_dropped" from="TabContainer/Mapping/TextureList" to="." method="_on_Files_textures_dropped"]
 [connection signal="pressed" from="TabContainer/Mapping/TextureList/HeadingBox/AddTextureButton" to="." method="_on_AddTextureButton_pressed"]
 [connection signal="file_selected" from="TabContainer/Mapping/TextureList/HeadingBox/AddTextureButton/FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="changed" from="TabContainer/Settings" to="." method="_on_Settings_changed"]
